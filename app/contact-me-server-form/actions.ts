@@ -1,7 +1,6 @@
 "use server";
 
-import { promises as fs } from "fs";
-import path from "path";
+import { addSubmission } from "@/lib/submissions";
 
 export interface ContactFormState {
   status: "idle" | "success" | "error";
@@ -12,8 +11,6 @@ export interface ContactFormState {
     form?: string;
   };
 }
-
-const submissionsPath = path.join(process.cwd(), "data", "submissions.json");
 
 export async function submitContact(
   _prevState: ContactFormState,
@@ -42,33 +39,9 @@ export async function submitContact(
   }
 
   try {
-    // Step 3: Make sure the data folder exists, then read existing submissions.
-    // A failed read (missing file or invalid JSON) simply starts from an empty array.
-    await fs.mkdir(path.dirname(submissionsPath), { recursive: true });
-    let submissions: unknown[] = [];
-    try {
-      const raw = await fs.readFile(submissionsPath, "utf8");
-      const parsed: unknown = JSON.parse(raw);
-      submissions = Array.isArray(parsed) ? parsed : [];
-    } catch {
-      submissions = [];
-    }
-
-    // Step 4: Append the new submission with a unique id and an ISO timestamp.
-    submissions.push({
-      id: crypto.randomUUID(),
-      name,
-      email,
-      message,
-      submittedAt: new Date().toISOString(),
-    });
-
-    // Step 5: Write the updated array back to the JSON file.
-    await fs.writeFile(
-      submissionsPath,
-      JSON.stringify(submissions, null, 2),
-      "utf8"
-    );
+    // Step 3: Save through the shared submissions module, tagged as "server-form"
+    // so we can tell which form the entry came from.
+    await addSubmission({ name, email, message, source: "server-form" });
   } catch (error) {
     console.error("Failed to save submission:", error);
     return {
