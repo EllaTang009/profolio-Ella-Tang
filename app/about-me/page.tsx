@@ -25,8 +25,8 @@ const timeline = [
   },
   {
     role: "Teaching Assistant",
-    place: "Santa Clara University",
-    note: "Teaching Assistant for Tableau, Machine Learning, and Linear Algebra with Python.",
+    place: "Santa Clara University · Spring 2026 to present",
+    note: "Teaching Assistant for Dashboards with Tableau, Machine Learning with Python, and Linear Algebra with Python. 12 course sections across 3 terms.",
   },
   {
     role: "Information Systems & Web Development Intern",
@@ -54,8 +54,8 @@ export default function AboutMe() {
           <p className="type-body mt-6">
             I&apos;m Ella Tang, an MS in Information Systems candidate at Santa
             Clara University, where I also work as a Teaching Assistant for
-            Tableau, Machine Learning, and Linear Algebra with Python. I
-            started my career as a Senior Audit
+            Dashboards with Tableau, Machine Learning with Python, and Linear
+            Algebra with Python. I started my career as a Senior Audit
             Associate at KPMG China, then founded and ran two businesses: a
             catering company and an automotive content company that grew to 1
             million followers within 4 months. I&apos;m currently an
