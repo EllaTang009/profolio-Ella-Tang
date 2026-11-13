@@ -37,7 +37,16 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message }),
       });
-      const body = await response.json();
+
+      // Parse the response body defensively: an unexpected non-JSON response
+      // (proxy error page, crash, etc.) must not crash the form silently.
+      let body: { errors?: FieldErrors } = {};
+      try {
+        body = await response.json();
+      } catch {
+        // Leave body empty; the status-based fallback below reports it.
+      }
+
       if (response.status === 201) {
         // 201: the entry was saved — show the success message and clear the fields.
         setSuccess(true);
@@ -45,9 +54,13 @@ export default function ContactForm() {
         setEmail("");
         setMessage("");
       } else {
-        // 400/500: the API responds with an { errors } object.
+        // 400: field-specific errors; any other failure: a visible fallback.
         setErrors(
-          body.errors ?? { form: "Something went wrong. Please try again." }
+          body.errors && Object.keys(body.errors).length > 0
+            ? body.errors
+            : {
+                form: `Something went wrong (HTTP ${response.status}). Please try again.`,
+              }
         );
       }
     } catch {
