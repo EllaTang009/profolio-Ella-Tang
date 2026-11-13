@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import HoverVideo from "@/app/components/HoverVideo";
+import ProjectCard from "@/app/components/ProjectCard";
 import { projects } from "@/lib/projects";
 
 export const metadata: Metadata = {
@@ -16,55 +15,23 @@ export default function Projects() {
       </p>
 
       <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project, index) => {
-          // Card content lives inside HoverVideo so the whole card is the
-          // hover target that plays the preview video.
-          const content = (
-            <>
-              <span className="mt-5 font-mono text-[13px] text-accent">
-                {String(index + 1).padStart(2, "0")} · {project.category}
-              </span>
-              <h2 className="type-h3 mt-4">{project.title}</h2>
-              <p className="type-body mt-2 flex-1">{project.shortDescription}</p>
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
-                  <li
-                    key={tech}
-                    className="rounded-md border border-line px-2 py-0.5 font-mono text-[13px] text-secondary"
-                  >
-                    {tech}
-                  </li>
-                ))}
-              </ul>
-            </>
-          );
-
-          return (
-            <Link
-              key={project.slug}
-              href={`/projects/${project.slug}`}
-              className={`group flex flex-col rounded-xl border border-line bg-surface p-6 transition-colors hover:border-white/20 ${
-                // With three projects, the odd last card spans the full row
-                // on tablet sizes and rejoins the grid on large screens.
-                index === projects.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
-              }`}
-            >
-              {project.video ? (
-                <HoverVideo
-                  src={project.video.src}
-                  poster={project.video.poster}
-                  label={`${project.title} preview`}
-                  className="aspect-[16/10] w-full rounded-lg border border-line object-cover"
-                  containerClassName="flex flex-col"
-                >
-                  {content}
-                </HoverVideo>
-              ) : (
-                content
-              )}
-            </Link>
-          );
-        })}
+        {projects.map((project, index) => (
+          <ProjectCard
+            key={project.slug}
+            href={`/projects/${project.slug}`}
+            number={String(index + 1).padStart(2, "0")}
+            category={project.category}
+            title={project.title}
+            description={project.shortDescription}
+            tags={project.techStack}
+            video={project.video}
+            className={
+              // With three projects, the odd last card spans the full row
+              // on tablet sizes and rejoins the grid on large screens.
+              index === projects.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
+            }
+          />
+        ))}
       </div>
     </section>
   );

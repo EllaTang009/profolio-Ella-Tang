@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import HoverVideo from "@/app/components/HoverVideo";
+import BannerVideo from "@/app/components/BannerVideo";
 import { getProjectBySlug, projects } from "@/lib/projects";
 
 interface ProjectPageProps {
@@ -63,8 +63,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </Link>
 
       {project.video && (
-        <HoverVideo
-          autoPlay
+        <BannerVideo
           src={project.video.src}
           poster={project.video.poster}
           label={`${project.title} banner`}
