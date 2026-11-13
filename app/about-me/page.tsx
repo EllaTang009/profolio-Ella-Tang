@@ -15,13 +15,13 @@ const skillGroups = [
 const timeline = [
   {
     role: "Senior Audit Associate",
-    place: "KPMG China",
+    place: "KPMG China · 2010 to 2013",
     note: "Started my career in Big 4 audit.",
   },
   {
     role: "Founder",
-    place: "Catering company & automotive content company",
-    note: "The automotive content company grew to 1 million followers within 4 months.",
+    place: "Catering company & automotive content company · 2016 to 2024",
+    note: "The restaurant grew non-local revenue by 20% through targeted social media promotions. The automotive content company grew to 1 million followers within 4 months.",
   },
   {
     role: "Teaching Assistant",
@@ -30,7 +30,7 @@ const timeline = [
   },
   {
     role: "Information Systems & Web Development Intern",
-    place: "TechBeam Real Estate",
+    place: "TechBeam Real Estate · Jun 2026 to present",
     note: "Built the company website end to end.",
   },
 ];
