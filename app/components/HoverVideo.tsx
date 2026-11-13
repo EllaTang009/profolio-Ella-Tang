@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 // Dark gradient stand-in shown when a video file is missing or fails
 // to load, so cards never render a broken player.
@@ -16,7 +16,8 @@ function Placeholder({ className }: { className?: string }) {
 // Video that plays on hover (like Linear's Now page cards) and falls
 // back gracefully on touch devices and for reduced-motion users.
 //
-// - Desktop: plays on mouse enter; pausing on mouse leave rewinds it.
+// - Desktop: plays when the mouse enters the CARD (the wrapper div below,
+//   which also contains the card text); leaving rewinds to the start.
 // - Touch (no hover): plays while scrolled into view; a tap also plays.
 // - prefers-reduced-motion: shows only the poster/first frame, never plays.
 // - autoPlay mode (project detail banner): muted autoplay + loop, with
@@ -27,12 +28,16 @@ export default function HoverVideo({
   autoPlay = false,
   label,
   className,
+  containerClassName,
+  children,
 }: {
   src?: string;
   poster?: string;
   autoPlay?: boolean;
   label?: string;
   className?: string;
+  containerClassName?: string;
+  children?: ReactNode;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [failed, setFailed] = useState(false);
@@ -47,9 +52,16 @@ export default function HoverVideo({
       "(prefers-reduced-motion: reduce)"
     ).matches;
     touchOnly.current = window.matchMedia("(hover: none)").matches;
+    const video = videoRef.current;
+    if (!video) {
+      return;
+    }
+    // Browsers decide whether playback is allowed based on the muted
+    // property, so enforce it imperatively (not just as an attribute).
+    video.muted = true;
     // Banner autoplay still respects the reduced-motion preference.
     if (reduceMotion.current) {
-      videoRef.current?.pause();
+      video.pause();
     }
   }, []);
 
@@ -77,8 +89,22 @@ export default function HoverVideo({
     return () => observer.disconnect();
   }, [autoPlay, failed]);
 
+  // play() returns a promise that can reject (e.g. NotAllowedError or a
+  // load hiccup); handle it instead of letting it surface as an error.
+  const tryPlay = () => {
+    videoRef.current?.play().catch(() => {});
+  };
+  const rewind = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  };
+  const canHover = () => !reduceMotion.current && !touchOnly.current;
+
   // Nudging currentTime forces the browser to paint the first frame,
-  // which preload="metadata" alone does not guarantee.
+  // which preload alone does not guarantee in every browser.
   const showFirstFrame = () => {
     const video = videoRef.current;
     if (video && video.currentTime < 0.01) {
@@ -90,7 +116,7 @@ export default function HoverVideo({
     return <Placeholder className={className} />;
   }
 
-  return (
+  const videoElement = (
     <video
       ref={videoRef}
       src={src}
@@ -98,39 +124,48 @@ export default function HoverVideo({
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="auto"
       autoPlay={autoPlay || undefined}
       aria-label={label}
       onError={() => setFailed(true)}
       onLoadedData={showFirstFrame}
+      className={className}
+    />
+  );
+
+  // Banner mode: a plain autoplaying video, no hover logic.
+  if (autoPlay) {
+    return videoElement;
+  }
+
+  // Card mode: the wrapper (video + card text) is the hover target, so
+  // hovering anywhere on the card plays the video via the ref.
+  return (
+    <div
       onMouseEnter={() => {
-        if (reduceMotion.current || touchOnly.current) {
-          return;
+        if (canHover()) {
+          tryPlay();
         }
-        videoRef.current?.play().catch(() => {});
       }}
       onMouseLeave={() => {
-        if (reduceMotion.current || touchOnly.current) {
-          return;
-        }
-        const video = videoRef.current;
-        if (video) {
-          video.pause();
-          video.currentTime = 0;
+        if (canHover()) {
+          rewind();
         }
       }}
       onClick={() => {
         // Tap-to-play for touch devices (where mouse events are emulated
         // without hover). Desktop users navigate the card link instead.
-        const video = videoRef.current;
-        if (!video || reduceMotion.current || !touchOnly.current) {
-          return;
-        }
-        if (video.paused) {
-          video.play().catch(() => {});
+        if (touchOnly.current && !reduceMotion.current) {
+          const video = videoRef.current;
+          if (video?.paused) {
+            tryPlay();
+          }
         }
       }}
-      className={className}
-    />
+      className={containerClassName}
+    >
+      {videoElement}
+      {children}
+    </div>
   );
 }
