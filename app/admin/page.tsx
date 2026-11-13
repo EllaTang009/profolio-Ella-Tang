@@ -22,7 +22,7 @@ async function AdminGate() {
       <form action={logoutAdmin} className="mt-4">
         <button
           type="submit"
-          className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
+          className="font-mono text-xs text-secondary transition-colors hover:text-foreground"
         >
           Log out
         </button>
@@ -44,21 +44,18 @@ async function SubmissionsTable() {
 
   if (sorted.length === 0) {
     return (
-      <div className="mt-8 rounded-2xl border border-dashed border-zinc-300 bg-white px-6 py-16 text-center">
-        <p className="text-zinc-600">No submissions yet.</p>
-        <p className="mt-2 text-sm text-zinc-500">
+      <div className="mt-8 rounded-xl border border-dashed border-line bg-surface px-6 py-16 text-center">
+        <p className="text-secondary">No submissions yet.</p>
+        <p className="mt-2 text-sm text-secondary">
           Messages sent from the{" "}
           <Link
             href="/contact-me-server-form"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
+            className="text-accent hover:opacity-80"
           >
             server action form
           </Link>{" "}
           or the{" "}
-          <Link
-            href="/contact-me"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
-          >
+          <Link href="/contact-me" className="text-accent hover:opacity-80">
             API form
           </Link>{" "}
           will appear here.
@@ -69,12 +66,12 @@ async function SubmissionsTable() {
 
   return (
     <>
-      <p className="mt-4 text-sm font-medium text-zinc-500">
+      <p className="mt-4 font-mono text-xs text-secondary">
         {sorted.length} {sorted.length === 1 ? "submission" : "submissions"}
       </p>
-      <div className="mt-4 overflow-x-auto rounded-2xl border border-zinc-200 bg-white shadow-sm">
+      <div className="mt-4 overflow-x-auto rounded-xl border border-line bg-surface">
         <table className="w-full min-w-[720px] text-left text-sm">
-          <thead className="border-b border-zinc-200 bg-zinc-50 text-xs font-semibold uppercase tracking-wider text-zinc-500">
+          <thead className="border-b border-line bg-white/5 font-mono text-xs uppercase tracking-wider text-secondary">
             <tr>
               <th className="px-4 py-3">Name</th>
               <th className="px-4 py-3">Email</th>
@@ -86,22 +83,24 @@ async function SubmissionsTable() {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-100">
+          <tbody className="divide-y divide-line">
             {sorted.map((submission: Submission) => (
-              <tr key={submission.id} className="align-top hover:bg-zinc-50">
-                <td className="px-4 py-3 font-medium text-zinc-900">
+              <tr key={submission.id} className="align-top hover:bg-white/5">
+                <td className="px-4 py-3 font-medium text-foreground">
                   {submission.name}
                 </td>
-                <td className="px-4 py-3 text-zinc-600">{submission.email}</td>
-                <td className="max-w-xs px-4 py-3 text-zinc-600">
+                <td className="px-4 py-3 text-secondary">
+                  {submission.email}
+                </td>
+                <td className="max-w-xs px-4 py-3 text-secondary">
                   {submission.message}
                 </td>
                 <td className="px-4 py-3">
-                  <span className="inline-block whitespace-nowrap rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-0.5 text-xs font-medium text-indigo-700">
+                  <span className="inline-block whitespace-nowrap rounded-md border border-line px-2 py-0.5 font-mono text-xs text-accent">
                     {submission.source ?? "—"}
                   </span>
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-zinc-500">
+                <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-secondary">
                   {new Date(submission.submittedAt).toLocaleString("en-US", {
                     dateStyle: "medium",
                     timeStyle: "short",
@@ -122,12 +121,12 @@ async function SubmissionsTable() {
 export default function Admin() {
   return (
     <section className="mx-auto w-full max-w-5xl flex-1 px-4 py-16 sm:px-6">
-      <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
+      <h1 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
         Submissions
       </h1>
       <Suspense
         fallback={
-          <div className="mt-8 h-48 animate-pulse rounded-2xl border border-zinc-200 bg-zinc-100" />
+          <div className="mt-8 h-48 animate-pulse rounded-xl border border-line bg-surface" />
         }
       >
         <AdminGate />

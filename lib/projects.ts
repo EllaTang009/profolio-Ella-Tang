@@ -2,7 +2,9 @@ export interface Project {
   slug: string;
   title: string;
   shortDescription: string;
-  longDescription: string;
+  problem: string;
+  approach: string;
+  result: string;
   techStack: string[];
 }
 
@@ -12,8 +14,12 @@ export const projects: Project[] = [
     title: "AI Interviewer Rating Agent",
     shortDescription:
       "A practicum project for Roblox: an AI agent that evaluates interviewer performance across 13 rubrics.",
-    longDescription:
-      "A practicum project for Roblox. An AI agent that evaluates interviewer performance across 13 rubrics to help the company see whether interviewers performed well.",
+    problem:
+      "Roblox needed a reliable way to see whether interviewers performed well during their interviews.",
+    approach:
+      "As a practicum project for Roblox, I built an AI agent that evaluates interviewer performance across 13 rubrics, turning interview sessions into structured, comparable results.",
+    result:
+      "The agent gives Roblox a structured picture of interviewer performance across all 13 rubrics instead of relying on manual review.",
     techStack: ["Python", "Generative AI"],
   },
   {
@@ -21,8 +27,12 @@ export const projects: Project[] = [
     title: "Formula 1 Driver Performance Analysis",
     shortDescription:
       "A Python project investigating what drives Formula 1 driver performance using statistical modeling.",
-    longDescription:
-      "A Python project that investigates hypotheses about what drives Formula 1 driver performance using statistical modeling. Received positive feedback from the professor and peers.",
+    problem:
+      "What actually drives Formula 1 driver performance? The project set out to test hypotheses instead of assuming.",
+    approach:
+      "Used Python with pandas and statistical modeling to investigate hypotheses about the factors behind driver performance.",
+    result:
+      "The analysis was well received, earning positive feedback from the professor and peers.",
     techStack: ["Python", "pandas", "Statistical Modeling"],
   },
 ];
