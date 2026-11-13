@@ -24,7 +24,7 @@ export default function Life() {
       >
         Beyond Work
       </h1>
-      <p className="mt-4 font-mono text-xs text-secondary sm:text-sm">
+      <p className="type-caption mt-4 font-mono">
         Places, food, and light — the things that keep me curious outside of
         code.
       </p>

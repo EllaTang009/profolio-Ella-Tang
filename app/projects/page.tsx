@@ -9,10 +9,8 @@ export const metadata: Metadata = {
 export default function Projects() {
   return (
     <section className="mx-auto w-full max-w-5xl flex-1 px-4 py-16 sm:px-6">
-      <h1 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
-        Projects
-      </h1>
-      <p className="mt-4 text-secondary">
+      <h1 className="type-h2">Projects</h1>
+      <p className="type-body mt-4">
         A selection of academic and professional projects.
       </p>
 
@@ -23,20 +21,16 @@ export default function Projects() {
             href={`/projects/${project.slug}`}
             className="group flex flex-col rounded-xl border border-line bg-surface p-6 transition-colors hover:border-white/20"
           >
-            <span className="font-mono text-xs text-accent">
+            <span className="font-mono text-[13px] text-accent">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <h2 className="mt-4 text-lg font-medium text-foreground">
-              {project.title}
-            </h2>
-            <p className="mt-2 flex-1 text-sm leading-6 text-secondary">
-              {project.shortDescription}
-            </p>
+            <h2 className="type-h3 mt-4">{project.title}</h2>
+            <p className="type-body mt-2 flex-1">{project.shortDescription}</p>
             <ul className="mt-5 flex flex-wrap gap-2">
               {project.techStack.map((tech) => (
                 <li
                   key={tech}
-                  className="rounded-md border border-line px-2 py-0.5 font-mono text-xs text-secondary"
+                  className="rounded-md border border-line px-2 py-0.5 font-mono text-[13px] text-secondary"
                 >
                   {tech}
                 </li>

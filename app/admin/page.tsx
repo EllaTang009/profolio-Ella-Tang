@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { isAdminAuthenticated } from "./auth";
@@ -22,7 +22,7 @@ async function AdminGate() {
       <form action={logoutAdmin} className="mt-4">
         <button
           type="submit"
-          className="font-mono text-xs text-secondary transition-colors hover:text-foreground"
+          className="font-mono text-[13px] text-secondary transition-colors hover:text-foreground"
         >
           Log out
         </button>
@@ -45,8 +45,8 @@ async function SubmissionsTable() {
   if (sorted.length === 0) {
     return (
       <div className="mt-8 rounded-xl border border-dashed border-line bg-surface px-6 py-16 text-center">
-        <p className="text-secondary">No submissions yet.</p>
-        <p className="mt-2 text-sm text-secondary">
+        <p className="type-body">No submissions yet.</p>
+        <p className="type-caption mt-2">
           Messages sent from the{" "}
           <Link
             href="/contact-me-server-form"
@@ -66,12 +66,12 @@ async function SubmissionsTable() {
 
   return (
     <>
-      <p className="mt-4 font-mono text-xs text-secondary">
+      <p className="mt-4 type-caption font-mono">
         {sorted.length} {sorted.length === 1 ? "submission" : "submissions"}
       </p>
       <div className="mt-4 overflow-x-auto rounded-xl border border-line bg-surface">
         <table className="w-full min-w-[720px] text-left text-sm">
-          <thead className="border-b border-line bg-white/5 font-mono text-xs uppercase tracking-wider text-secondary">
+          <thead className="border-b border-line bg-white/5 font-mono text-[13px] uppercase tracking-wider text-secondary">
             <tr>
               <th className="px-4 py-3">Name</th>
               <th className="px-4 py-3">Email</th>
@@ -96,11 +96,11 @@ async function SubmissionsTable() {
                   {submission.message}
                 </td>
                 <td className="px-4 py-3">
-                  <span className="inline-block whitespace-nowrap rounded-md border border-line px-2 py-0.5 font-mono text-xs text-accent">
+                  <span className="inline-block whitespace-nowrap rounded-md border border-line px-2 py-0.5 font-mono text-[13px] text-accent">
                     {submission.source ?? "—"}
                   </span>
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-secondary">
+                <td className="whitespace-nowrap px-4 py-3 type-caption font-mono">
                   {new Date(submission.submittedAt).toLocaleString("en-US", {
                     dateStyle: "medium",
                     timeStyle: "short",
@@ -121,9 +121,7 @@ async function SubmissionsTable() {
 export default function Admin() {
   return (
     <section className="mx-auto w-full max-w-5xl flex-1 px-4 py-16 sm:px-6">
-      <h1 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
-        Submissions
-      </h1>
+      <h1 className="type-h2">Submissions</h1>
       <Suspense
         fallback={
           <div className="mt-8 h-48 animate-pulse rounded-xl border border-line bg-surface" />

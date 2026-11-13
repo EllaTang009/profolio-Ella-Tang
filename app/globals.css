@@ -31,6 +31,64 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-optical-sizing: auto;
+}
+
+/* ---- Type scale (Linear-style): large sizes, medium weight, tight spacing.
+   No bold headings; hierarchy comes from size and spacing. ---- */
+.type-hero {
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+@media (min-width: 640px) {
+  .type-hero {
+    font-size: 56px;
+  }
+}
+.type-h2 {
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--foreground);
+}
+@media (min-width: 768px) {
+  .type-h2 {
+    font-size: 40px;
+  }
+}
+.type-h3 {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  color: var(--foreground);
+}
+@media (min-width: 640px) {
+  .type-h3 {
+    font-size: 20px;
+  }
+}
+.type-body {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--secondary);
+  max-width: 60ch;
+}
+@media (min-width: 640px) {
+  .type-body {
+    font-size: 17px;
+  }
+}
+.type-caption {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--secondary);
 }
 
 ::selection {

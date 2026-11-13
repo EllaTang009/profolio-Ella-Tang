@@ -15,13 +15,11 @@ export default function Home() {
   return (
     <section className="hero-glow flex flex-1 flex-col">
       <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-4 pb-16 pt-24 text-center sm:px-6">
-        <h1 className="text-5xl font-medium tracking-tighter text-foreground sm:text-6xl md:text-7xl">
-          Ella Tang
-        </h1>
-        <p className="mt-5 font-mono text-xs tracking-wide text-secondary sm:text-sm">
+        <h1 className="type-hero">Ella Tang</h1>
+        <p className="type-caption mt-5 font-mono">
           Information Systems &middot; Data Analytics &middot; Web Development
         </p>
-        <p className="mt-8 max-w-2xl text-base leading-8 text-secondary sm:text-lg">
+        <p className="type-body mt-8">
           I&apos;m pursuing a Master of Information Systems at Santa Clara
           University. With a background in Big 4 audit and years of running my
           own businesses, I combine data analysis with hands-on operations
@@ -52,7 +50,7 @@ export default function Home() {
             <p className="text-3xl font-medium tracking-tight text-accent sm:text-4xl">
               {fact.value}
             </p>
-            <p className="mt-2 text-sm text-secondary">{fact.label}</p>
+            <p className="type-caption mt-2">{fact.label}</p>
           </div>
         ))}
       </div>

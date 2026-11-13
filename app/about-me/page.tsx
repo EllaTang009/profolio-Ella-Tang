@@ -50,10 +50,8 @@ export default function AboutMe() {
           />
         </div>
         <div>
-          <h1 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
-            About Me
-          </h1>
-          <p className="mt-6 text-base leading-8 text-secondary sm:text-lg">
+          <h1 className="type-h2">About Me</h1>
+          <p className="type-body mt-6">
             I&apos;m Ella Tang, an MS in Information Systems candidate at Santa
             Clara University, where I also work as a Teaching Assistant for
             Tableau and Machine Learning. I started my career as a Senior Audit
@@ -66,23 +64,21 @@ export default function AboutMe() {
         </div>
       </div>
 
-      <h2 className="mt-16 text-xl font-medium tracking-tight text-foreground sm:text-2xl">
-        Skills
-      </h2>
+      <h2 className="type-h2 mt-16">Skills</h2>
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {skillGroups.map((group) => (
           <div
             key={group.category}
             className="rounded-xl border border-line bg-surface p-5"
           >
-            <p className="font-mono text-xs uppercase tracking-wider text-accent">
+            <p className="font-mono text-[13px] uppercase tracking-wider text-accent">
               {group.category}
             </p>
             <ul className="mt-3 flex flex-wrap gap-2">
               {group.skills.map((skill) => (
                 <li
                   key={skill}
-                  className="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-secondary"
+                  className="rounded-md border border-line px-2.5 py-1 font-mono text-[13px] text-secondary"
                 >
                   {skill}
                 </li>
@@ -92,16 +88,16 @@ export default function AboutMe() {
         ))}
       </div>
 
-      <h2 className="mt-16 text-xl font-medium tracking-tight text-foreground sm:text-2xl">
-        Experience
-      </h2>
+      <h2 className="type-h2 mt-16">Experience</h2>
       <ol className="mt-6 border-l border-line">
         {timeline.map((item) => (
           <li key={item.role} className="relative pb-8 pl-8 last:pb-0">
             <span className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full border border-accent bg-background" />
-            <p className="font-medium text-foreground">{item.role}</p>
-            <p className="mt-1 font-mono text-xs text-accent">{item.place}</p>
-            <p className="mt-2 text-sm leading-6 text-secondary">{item.note}</p>
+            <h3 className="type-h3">{item.role}</h3>
+            <p className="mt-1 font-mono text-[13px] text-accent">
+              {item.place}
+            </p>
+            <p className="type-caption mt-2">{item.note}</p>
           </li>
         ))}
       </ol>
