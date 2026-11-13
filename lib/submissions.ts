@@ -56,3 +56,20 @@ export async function addSubmission(input: NewSubmission): Promise<Submission> {
 
   return submission;
 }
+
+export async function deleteSubmission(id: string): Promise<boolean> {
+  const submissions = await getSubmissions();
+  const remaining = submissions.filter((entry) => entry.id !== id);
+
+  // Unknown id: nothing to write, so the caller knows the delete failed.
+  if (remaining.length === submissions.length) {
+    return false;
+  }
+
+  await fs.writeFile(
+    submissionsPath,
+    JSON.stringify(remaining, null, 2),
+    "utf8"
+  );
+  return true;
+}
