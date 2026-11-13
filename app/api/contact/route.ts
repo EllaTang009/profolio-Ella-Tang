@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { addSubmission } from "@/lib/submissions";
+import { validateContact } from "@/lib/validation";
 
 // Handles POST /api/contact: receive a JSON body, validate it, and store it.
 export async function POST(request: Request) {
@@ -20,19 +21,8 @@ export async function POST(request: Request) {
   const email = typeof data.email === "string" ? data.email.trim() : "";
   const message = typeof data.message === "string" ? data.message.trim() : "";
 
-  // Step 3: Validate on the server: all fields required, email format checked.
-  const errors: { name?: string; email?: string; message?: string } = {};
-  if (!name) {
-    errors.name = "Please enter your name.";
-  }
-  if (!email) {
-    errors.email = "Please enter your email address.";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errors.email = "Please enter a valid email address.";
-  }
-  if (!message) {
-    errors.message = "Please enter a message.";
-  }
+  // Step 3: Validate with the shared rules (single source of truth).
+  const errors = validateContact({ name, email, message });
   if (Object.keys(errors).length > 0) {
     return NextResponse.json({ errors }, { status: 400 });
   }

@@ -1,6 +1,7 @@
 "use server";
 
 import { addSubmission } from "@/lib/submissions";
+import { validateContact } from "@/lib/validation";
 
 export interface ContactFormState {
   status: "idle" | "success" | "error";
@@ -21,19 +22,8 @@ export async function submitContact(
   const email = String(formData.get("email") ?? "").trim();
   const message = String(formData.get("message") ?? "").trim();
 
-  // Step 2: Validate on the server (never trust the browser alone).
-  const errors: ContactFormState["errors"] = {};
-  if (!name) {
-    errors.name = "Please enter your name.";
-  }
-  if (!email) {
-    errors.email = "Please enter your email address.";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errors.email = "Please enter a valid email address.";
-  }
-  if (!message) {
-    errors.message = "Please enter a message.";
-  }
+  // Step 2: Validate with the shared rules (single source of truth).
+  const errors = validateContact({ name, email, message });
   if (Object.keys(errors).length > 0) {
     return { status: "error", errors };
   }
