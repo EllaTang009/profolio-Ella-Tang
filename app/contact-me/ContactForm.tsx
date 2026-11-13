@@ -1,29 +1,27 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import type { ContactFormErrors } from "@/lib/validation";
+import {
+  errorBannerClass,
+  fieldErrorClass,
+  inputClass,
+  labelClass,
+  submitButtonClass,
+  successBannerClass,
+} from "../components/formStyles";
 
 // Unlike /contact-me-server-form (which submits through a server action with
 // useActionState), this form is a plain client component that sends the data
 // itself with fetch() as a JSON POST to the /api/contact route handler and
 // interprets the HTTP response (201 success / 400 errors) in the browser.
-const inputClass =
-  "w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200";
-const labelClass = "block text-sm font-medium text-zinc-900";
-
-interface FieldErrors {
-  name?: string;
-  email?: string;
-  message?: string;
-  form?: string;
-}
-
 export default function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [errors, setErrors] = useState<FieldErrors>({});
+  const [errors, setErrors] = useState<ContactFormErrors>({});
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -40,7 +38,7 @@ export default function ContactForm() {
 
       // Parse the response body defensively: an unexpected non-JSON response
       // (proxy error page, crash, etc.) must not crash the form silently.
-      let body: { errors?: FieldErrors } = {};
+      let body: { errors?: ContactFormErrors } = {};
       try {
         body = await response.json();
       } catch {
@@ -74,19 +72,12 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="mt-8 space-y-5" noValidate>
       {success && (
-        <p
-          role="status"
-          className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700"
-        >
+        <p role="status" className={successBannerClass}>
           Thank you, your message has been sent! I&apos;ll get back to you soon.
         </p>
       )}
 
-      {errors.form && (
-        <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-          {errors.form}
-        </p>
-      )}
+      {errors.form && <p className={errorBannerClass}>{errors.form}</p>}
 
       <div>
         <label htmlFor="name" className={labelClass}>
@@ -104,9 +95,7 @@ export default function ContactForm() {
             errors.name ? "border-red-400" : ""
           }`}
         />
-        {errors.name && (
-          <p className="mt-1 text-sm text-red-600">{errors.name}</p>
-        )}
+        {errors.name && <p className={fieldErrorClass}>{errors.name}</p>}
       </div>
 
       <div>
@@ -125,9 +114,7 @@ export default function ContactForm() {
             errors.email ? "border-red-400" : ""
           }`}
         />
-        {errors.email && (
-          <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-        )}
+        {errors.email && <p className={fieldErrorClass}>{errors.email}</p>}
       </div>
 
       <div>
@@ -146,16 +133,10 @@ export default function ContactForm() {
             errors.message ? "border-red-400" : ""
           }`}
         />
-        {errors.message && (
-          <p className="mt-1 text-sm text-red-600">{errors.message}</p>
-        )}
+        {errors.message && <p className={fieldErrorClass}>{errors.message}</p>}
       </div>
 
-      <button
-        type="submit"
-        disabled={sending}
-        className="inline-flex h-11 w-full items-center justify-center rounded-full bg-indigo-600 px-6 text-sm font-semibold text-white transition-colors hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-      >
+      <button type="submit" disabled={sending} className={submitButtonClass}>
         {sending ? "Sending..." : "Send Message"}
       </button>
     </form>

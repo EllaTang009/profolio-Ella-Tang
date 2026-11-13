@@ -10,6 +10,10 @@ export interface ContactFieldErrors {
   message?: string;
 }
 
+// Field errors plus an optional form-level message for problems that are
+// not tied to one field (malformed JSON, save failures, network errors).
+export type ContactFormErrors = ContactFieldErrors & { form?: string };
+
 // Single source of truth for contact-form validation, shared by the
 // server action and the API route. Expects already-trimmed values.
 export function validateContact(input: ContactInput): ContactFieldErrors {

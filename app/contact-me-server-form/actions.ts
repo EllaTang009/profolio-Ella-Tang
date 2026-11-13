@@ -1,16 +1,11 @@
 "use server";
 
 import { addSubmission } from "@/lib/submissions";
-import { validateContact } from "@/lib/validation";
+import { validateContact, type ContactFormErrors } from "@/lib/validation";
 
 export interface ContactFormState {
   status: "idle" | "success" | "error";
-  errors: {
-    name?: string;
-    email?: string;
-    message?: string;
-    form?: string;
-  };
+  errors: ContactFormErrors;
 }
 
 export async function submitContact(

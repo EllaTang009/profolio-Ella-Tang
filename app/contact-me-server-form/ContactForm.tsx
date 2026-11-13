@@ -2,12 +2,16 @@
 
 import { useActionState } from "react";
 import { submitContact, type ContactFormState } from "./actions";
+import {
+  errorBannerClass,
+  fieldErrorClass,
+  inputClass,
+  labelClass,
+  submitButtonClass,
+  successBannerClass,
+} from "../components/formStyles";
 
 const initialState: ContactFormState = { status: "idle", errors: {} };
-
-const inputClass =
-  "w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200";
-const labelClass = "block text-sm font-medium text-zinc-900";
 
 export default function ContactForm() {
   // useActionState connects the form to the server action: it passes the
@@ -26,19 +30,13 @@ export default function ContactForm() {
       noValidate
     >
       {state.status === "success" && (
-        <p
-          role="status"
-          className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700"
-        >
-          Thank you, your message has been sent! I&apos;ll get back to you
-          soon.
+        <p role="status" className={successBannerClass}>
+          Thank you, your message has been sent! I&apos;ll get back to you soon.
         </p>
       )}
 
       {state.errors.form && (
-        <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-          {state.errors.form}
-        </p>
+        <p className={errorBannerClass}>{state.errors.form}</p>
       )}
 
       <div>
@@ -56,7 +54,7 @@ export default function ContactForm() {
           }`}
         />
         {state.errors.name && (
-          <p className="mt-1 text-sm text-red-600">{state.errors.name}</p>
+          <p className={fieldErrorClass}>{state.errors.name}</p>
         )}
       </div>
 
@@ -75,7 +73,7 @@ export default function ContactForm() {
           }`}
         />
         {state.errors.email && (
-          <p className="mt-1 text-sm text-red-600">{state.errors.email}</p>
+          <p className={fieldErrorClass}>{state.errors.email}</p>
         )}
       </div>
 
@@ -94,15 +92,11 @@ export default function ContactForm() {
           }`}
         />
         {state.errors.message && (
-          <p className="mt-1 text-sm text-red-600">{state.errors.message}</p>
+          <p className={fieldErrorClass}>{state.errors.message}</p>
         )}
       </div>
 
-      <button
-        type="submit"
-        disabled={isPending}
-        className="inline-flex h-11 w-full items-center justify-center rounded-full bg-indigo-600 px-6 text-sm font-semibold text-white transition-colors hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-      >
+      <button type="submit" disabled={isPending} className={submitButtonClass}>
         {isPending ? "Sending..." : "Send Message"}
       </button>
     </form>
