@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, type FormEvent } from "react";
 import type { ContactFormErrors } from "@/lib/validation";
@@ -46,7 +46,7 @@ export default function ContactForm() {
       }
 
       if (response.status === 201) {
-        // 201: the entry was saved — show the success message and clear the fields.
+        // 201: the entry was saved 鈥?show the success message and clear the fields.
         setSuccess(true);
         setName("");
         setEmail("");
@@ -92,7 +92,7 @@ export default function ContactForm() {
           onChange={(event) => setName(event.target.value)}
           aria-invalid={Boolean(errors.name)}
           className={`mt-1.5 ${inputClass} ${
-            errors.name ? "border-red-400" : ""
+            errors.name ? "border-danger" : ""
           }`}
         />
         {errors.name && <p className={fieldErrorClass}>{errors.name}</p>}
@@ -111,7 +111,7 @@ export default function ContactForm() {
           onChange={(event) => setEmail(event.target.value)}
           aria-invalid={Boolean(errors.email)}
           className={`mt-1.5 ${inputClass} ${
-            errors.email ? "border-red-400" : ""
+            errors.email ? "border-danger" : ""
           }`}
         />
         {errors.email && <p className={fieldErrorClass}>{errors.email}</p>}
@@ -130,7 +130,7 @@ export default function ContactForm() {
           onChange={(event) => setMessage(event.target.value)}
           aria-invalid={Boolean(errors.message)}
           className={`mt-1.5 ${inputClass} ${
-            errors.message ? "border-red-400" : ""
+            errors.message ? "border-danger" : ""
           }`}
         />
         {errors.message && <p className={fieldErrorClass}>{errors.message}</p>}

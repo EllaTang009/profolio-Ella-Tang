@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useActionState } from "react";
 import { loginAdmin, type LoginFormState } from "./actions";
@@ -34,7 +34,7 @@ export default function PasswordForm() {
           required
           autoComplete="current-password"
           className={`mt-1.5 ${inputClass} ${
-            state.error ? "border-red-400" : ""
+            state.error ? "border-danger" : ""
           }`}
         />
         {state.error && <p className={fieldErrorClass}>{state.error}</p>}

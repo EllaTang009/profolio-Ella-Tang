@@ -1,54 +1,30 @@
 @import "tailwindcss";
 
 :root {
+  /* Force dark regardless of the system light/dark setting. */
+  color-scheme: dark;
   --background: #08090a;
   --foreground: #f7f8f8;
   --surface: #111214;
   --line: rgba(255, 255, 255, 0.08);
   --secondary: #8a8f98;
   --accent: #7c7fff;
+  --success: #3ecf8e;
+  --danger: #ff6363;
 }
 
 @theme inline {
-  /* Semantic design tokens for the shared layout and components. */
+  /* Semantic design tokens — the only colors the site should use. */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
   --color-line: var(--line);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains);
-
-  /* Remap the palette shades that page content already uses so every page
-     picks up the dark scheme now; pages can migrate to semantic tokens
-     (bg-surface, border-line, text-secondary, text-accent) later. */
-  --color-zinc-50: #0d0e10;
-  --color-zinc-100: #16171a;
-  --color-zinc-200: rgba(255, 255, 255, 0.08);
-  --color-zinc-300: rgba(255, 255, 255, 0.14);
-  --color-zinc-400: #62666d;
-  --color-zinc-500: #8a8f98;
-  --color-zinc-600: #8a8f98;
-  --color-zinc-800: #c6c9cf;
-  --color-zinc-900: #f7f8f8;
-  --color-white: #111214;
-  --color-indigo-50: rgba(124, 127, 255, 0.08);
-  --color-indigo-200: rgba(124, 127, 255, 0.25);
-  --color-indigo-300: rgba(124, 127, 255, 0.35);
-  --color-indigo-400: #9d9fff;
-  --color-indigo-500: #7c7fff;
-  --color-indigo-600: #7c7fff;
-  --color-indigo-700: #a6a8ff;
-  --color-green-50: rgba(52, 199, 123, 0.08);
-  --color-green-200: rgba(52, 199, 123, 0.25);
-  --color-green-700: #3ecf8e;
-  --color-red-50: rgba(255, 99, 99, 0.08);
-  --color-red-200: rgba(255, 99, 99, 0.25);
-  --color-red-300: rgba(255, 99, 99, 0.4);
-  --color-red-400: #ff8080;
-  --color-red-600: #ff6363;
-  --color-red-700: #ff8080;
 }
 
 body {

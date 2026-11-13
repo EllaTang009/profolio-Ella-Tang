@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useActionState } from "react";
 import { submitContact, type ContactFormState } from "./actions";
@@ -50,7 +50,7 @@ export default function ContactForm() {
           required
           aria-invalid={Boolean(state.errors.name)}
           className={`mt-1.5 ${inputClass} ${
-            state.errors.name ? "border-red-400" : ""
+            state.errors.name ? "border-danger" : ""
           }`}
         />
         {state.errors.name && (
@@ -69,7 +69,7 @@ export default function ContactForm() {
           required
           aria-invalid={Boolean(state.errors.email)}
           className={`mt-1.5 ${inputClass} ${
-            state.errors.email ? "border-red-400" : ""
+            state.errors.email ? "border-danger" : ""
           }`}
         />
         {state.errors.email && (
@@ -88,7 +88,7 @@ export default function ContactForm() {
           required
           aria-invalid={Boolean(state.errors.message)}
           className={`mt-1.5 ${inputClass} ${
-            state.errors.message ? "border-red-400" : ""
+            state.errors.message ? "border-danger" : ""
           }`}
         />
         {state.errors.message && (

@@ -18,7 +18,7 @@ export default function DeleteButton({ id }: { id: string }) {
       <input type="hidden" name="id" value={id} />
       <button
         type="submit"
-        className="text-xs font-medium text-red-600 transition-colors hover:text-red-500"
+        className="text-xs font-medium text-danger transition-colors hover:opacity-80"
       >
         Delete
       </button>
