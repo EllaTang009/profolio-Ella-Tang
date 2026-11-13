@@ -25,14 +25,14 @@ export default function Navbar() {
       : pathname === href || pathname.startsWith(href + "/");
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-line bg-background/80 backdrop-blur">
       <nav className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight text-zinc-900"
+          className="text-lg font-medium tracking-tight text-foreground"
           onClick={() => setOpen(false)}
         >
-          Ella<span className="text-indigo-600">Tang</span>
+          Ella<span className="text-accent">Tang</span>
         </Link>
 
         <div className="hidden items-center gap-8 sm:flex">
@@ -44,8 +44,8 @@ export default function Navbar() {
                 href={link.href}
                 className={`text-sm font-medium transition-colors ${
                   active
-                    ? "text-indigo-600"
-                    : "text-zinc-600 hover:text-zinc-900"
+                    ? "text-foreground"
+                    : "text-secondary hover:text-foreground"
                 }`}
               >
                 {link.label}
@@ -56,7 +56,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 sm:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-secondary transition-colors hover:bg-white/5 hover:text-foreground sm:hidden"
           aria-label="Toggle navigation"
           aria-expanded={open}
           onClick={() => setOpen(!open)}
@@ -86,7 +86,7 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="border-t border-zinc-200 bg-white sm:hidden">
+        <div className="border-t border-line bg-surface">
           <div className="mx-auto flex w-full max-w-5xl flex-col px-4 py-3">
             {links.map((link) => {
               const active = isActive(link.href);
@@ -95,10 +95,10 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                     active
-                      ? "bg-indigo-50 text-indigo-600"
-                      : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
+                      ? "bg-white/5 text-foreground"
+                      : "text-secondary hover:bg-white/5 hover:text-foreground"
                   }`}
                 >
                   {link.label}
