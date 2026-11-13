@@ -15,14 +15,14 @@ export default function Projects() {
         A selection of academic and professional projects.
       </p>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, index) => {
           // Card content lives inside HoverVideo so the whole card is the
           // hover target that plays the preview video.
           const content = (
             <>
               <span className="mt-5 font-mono text-[13px] text-accent">
-                {String(index + 1).padStart(2, "0")}
+                {String(index + 1).padStart(2, "0")} · {project.category}
               </span>
               <h2 className="type-h3 mt-4">{project.title}</h2>
               <p className="type-body mt-2 flex-1">{project.shortDescription}</p>
@@ -43,7 +43,11 @@ export default function Projects() {
             <Link
               key={project.slug}
               href={`/projects/${project.slug}`}
-              className="group flex flex-col rounded-xl border border-line bg-surface p-6 transition-colors hover:border-white/20"
+              className={`group flex flex-col rounded-xl border border-line bg-surface p-6 transition-colors hover:border-white/20 ${
+                // With three projects, the odd last card spans the full row
+                // on tablet sizes and rejoins the grid on large screens.
+                index === projects.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
+              }`}
             >
               {project.video ? (
                 <HoverVideo

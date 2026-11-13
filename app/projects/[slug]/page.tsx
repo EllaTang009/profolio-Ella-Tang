@@ -72,7 +72,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         />
       )}
 
-      <h1 className="type-h2 mt-8">{project.title}</h1>
+      <p className="mt-8 font-mono text-[13px] text-accent">
+        {project.category}
+      </p>
+      <h1 className="type-h2 mt-3">{project.title}</h1>
 
       <ul className="mt-6 flex flex-wrap gap-2">
         {project.techStack.map((tech) => (
@@ -84,6 +87,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </li>
         ))}
       </ul>
+
+      {project.liveUrl && (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-secondary mt-8 inline-flex h-11 items-center justify-center px-6 text-sm font-medium"
+        >
+          Visit live site
+        </a>
+      )}
 
       <div className="mt-12 space-y-10">
         {sections.map((section) => (

@@ -1,6 +1,7 @@
 export interface Project {
   slug: string;
   title: string;
+  category: string;
   shortDescription: string;
   problem: string;
   approach: string;
@@ -12,12 +13,15 @@ export interface Project {
     src: string;
     poster: string;
   };
+  // Optional external link to the deployed site, shown on the detail page.
+  liveUrl?: string;
 }
 
 export const projects: Project[] = [
   {
     slug: "roblox-interview-agent",
     title: "AI Interviewer Rating Agent",
+    category: "AI Practicum",
     shortDescription:
       "A practicum project for Roblox: an AI agent that evaluates interviewer performance across 13 rubrics.",
     problem:
@@ -35,6 +39,7 @@ export const projects: Project[] = [
   {
     slug: "f1-performance-analysis",
     title: "Formula 1 Driver Performance Analysis",
+    category: "Data Analysis",
     shortDescription:
       "A Python project investigating what drives Formula 1 driver performance using statistical modeling.",
     problem:
@@ -48,6 +53,24 @@ export const projects: Project[] = [
       src: "/videos/f1.mp4",
       poster: "/videos/f1-poster.jpg",
     },
+  },
+  {
+    slug: "ripple-realty-group",
+    title: "Ripple Realty Group Website",
+    category: "Web Development",
+    shortDescription:
+      "A real estate company website I built end to end, serving the Silicon Valley and Boston markets.",
+    problem:
+      "The company needed a professional website to present its listings and turn visitors into client inquiries.",
+    approach:
+      "I mapped the site structure, designed the property listing and contact pages, and implemented the page layouts in HTML/CSS and JavaScript. After launch, I used site analytics and user feedback to simplify the navigation, restructure the above-the-fold content and listing cards, and compress image assets.",
+    result: "Faster page load times and more contact form submissions.",
+    techStack: ["HTML", "CSS", "JavaScript", "Site Analytics"],
+    video: {
+      src: "/videos/ripple.mp4",
+      poster: "/videos/ripple-poster.jpg",
+    },
+    liveUrl: "https://www.ripplerealtygroup.com/",
   },
 ];
 
