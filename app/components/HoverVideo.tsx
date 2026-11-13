@@ -92,7 +92,14 @@ export default function HoverVideo({
   // play() returns a promise that can reject (e.g. NotAllowedError or a
   // load hiccup); handle it instead of letting it surface as an error.
   const tryPlay = () => {
-    videoRef.current?.play().catch(() => {});
+    const video = videoRef.current;
+    if (!video) {
+      return;
+    }
+    // Re-assert muted right before play(): browsers refuse unmuted
+    // playback, and React does not reliably set the muted attribute.
+    video.muted = true;
+    video.play().catch(() => {});
   };
   const rewind = () => {
     const video = videoRef.current;
