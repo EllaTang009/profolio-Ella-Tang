@@ -17,10 +17,12 @@ export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Home matches exactly; other sections also stay active on child pages
-  // (e.g. /projects/roblox-interview-agent keeps "Projects" highlighted).
+  // Home matches only "/"; other links match their exact href or a child
+  // path (href + "/"), so /contact-me never matches /contact-me-server-form.
   const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+    href === "/"
+      ? pathname === "/"
+      : pathname === href || pathname.startsWith(href + "/");
 
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur">
