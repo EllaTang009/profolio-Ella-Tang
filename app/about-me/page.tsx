@@ -41,9 +41,9 @@ export default function AboutMe() {
             Tableau and Machine Learning. I started my career as a Senior Audit
             Associate at KPMG China, then founded and ran two businesses: a
             catering company and an automotive content company that grew to 1
-            million followers. I&apos;m currently an Information Systems and
-            Web Development Intern at TechBeam Real Estate, where I built the
-            company website end to end.
+            million followers within 4 months. I&apos;m currently an
+            Information Systems and Web Development Intern at TechBeam Real
+            Estate, where I built the company website end to end.
           </p>
         </div>
       </div>
