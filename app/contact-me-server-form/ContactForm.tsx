@@ -11,7 +11,7 @@ import {
   successBannerClass,
 } from "../components/formStyles";
 
-const initialState: ContactFormState = { status: "idle", errors: {} };
+const initialState: ContactFormState = { status: "idle", errors: {}, key: 0 };
 
 export default function ContactForm() {
   // useActionState connects the form to the server action: it passes the
@@ -21,10 +21,15 @@ export default function ContactForm() {
     initialState
   );
 
+  // React 19 resets uncontrolled forms after an action, which would wipe
+  // valid fields on a validation error. Remounting the form on every
+  // completed submission (key changes) re-applies defaultValue: the
+  // submitted values on error, empty fields on success.
+  const values = state.values;
+
   return (
-    // Changing the key on success remounts the form, which clears the fields.
     <form
-      key={state.status === "success" ? "submitted" : "editing"}
+      key={state.key}
       action={formAction}
       className="mt-8 space-y-5"
       noValidate
@@ -48,6 +53,7 @@ export default function ContactForm() {
           name="name"
           type="text"
           required
+          defaultValue={values?.name ?? ""}
           aria-invalid={Boolean(state.errors.name)}
           className={`mt-1.5 ${inputClass} ${
             state.errors.name ? "border-danger" : ""
@@ -67,6 +73,7 @@ export default function ContactForm() {
           name="email"
           type="email"
           required
+          defaultValue={values?.email ?? ""}
           aria-invalid={Boolean(state.errors.email)}
           className={`mt-1.5 ${inputClass} ${
             state.errors.email ? "border-danger" : ""
@@ -86,6 +93,7 @@ export default function ContactForm() {
           name="message"
           rows={5}
           required
+          defaultValue={values?.message ?? ""}
           aria-invalid={Boolean(state.errors.message)}
           className={`mt-1.5 ${inputClass} ${
             state.errors.message ? "border-danger" : ""

@@ -6,6 +6,12 @@ import { validateContact, type ContactFormErrors } from "@/lib/validation";
 export interface ContactFormState {
   status: "idle" | "success" | "error";
   errors: ContactFormErrors;
+  // Submitted values come back on error so the form can re-show them
+  // instead of clearing fields the user already filled correctly.
+  values?: { name: string; email: string; message: string };
+  // Changes on every completed submission so the form remounts with the
+  // right contents: kept values on error, empty fields on success.
+  key: number;
 }
 
 export async function submitContact(
@@ -20,7 +26,12 @@ export async function submitContact(
   // Step 2: Validate with the shared rules (single source of truth).
   const errors = validateContact({ name, email, message });
   if (Object.keys(errors).length > 0) {
-    return { status: "error", errors };
+    return {
+      status: "error",
+      errors,
+      values: { name, email, message },
+      key: Date.now(),
+    };
   }
 
   try {
@@ -34,8 +45,11 @@ export async function submitContact(
       errors: {
         form: "Something went wrong while saving your message. Please try again.",
       },
+      values: { name, email, message },
+      key: Date.now(),
     };
   }
 
-  return { status: "success", errors: {} };
+  // No values on success: the remount clears the fields.
+  return { status: "success", errors: {}, key: Date.now() };
 }
