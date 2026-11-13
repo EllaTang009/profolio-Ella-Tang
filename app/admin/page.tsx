@@ -1,18 +1,32 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { connection } from "next/server";
+import { cookies } from "next/headers";
+import { getAdminSessionToken } from "./auth";
+import PasswordForm from "./PasswordForm";
 import { getSubmissions, type Submission } from "@/lib/submissions";
 
 export const metadata: Metadata = {
   title: "Admin",
 };
 
-// This async component runs at request time, not at build time:
-// `await connection()` opts it into dynamic rendering, so the table
-// always reflects the latest contents of data/submissions.json.
+// The gate runs at request time: cookies() is a dynamic API, so the
+// prerendered shell ships the fallback while this check runs per request.
+async function AdminGate() {
+  const cookieStore = await cookies();
+  const expected = getAdminSessionToken();
+  const authed =
+    expected !== null && cookieStore.get("admin_session")?.value === expected;
+
+  if (!authed) {
+    return <PasswordForm />;
+  }
+  return <SubmissionsTable />;
+}
+
+// This async component runs at request time, so the table always
+// reflects the latest contents of data/submissions.json.
 async function SubmissionsTable() {
-  await connection();
   const submissions = await getSubmissions();
 
   // Newest first (ISO timestamps sort chronologically as strings).
@@ -102,7 +116,7 @@ export default function Admin() {
           <div className="mt-8 h-48 animate-pulse rounded-2xl border border-zinc-200 bg-zinc-100" />
         }
       >
-        <SubmissionsTable />
+        <AdminGate />
       </Suspense>
     </section>
   );
