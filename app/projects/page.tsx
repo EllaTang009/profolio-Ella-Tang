@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import HoverVideo from "@/app/components/HoverVideo";
 import { projects } from "@/lib/projects";
 
 export const metadata: Metadata = {
@@ -21,7 +22,15 @@ export default function Projects() {
             href={`/projects/${project.slug}`}
             className="group flex flex-col rounded-xl border border-line bg-surface p-6 transition-colors hover:border-white/20"
           >
-            <span className="font-mono text-[13px] text-accent">
+            {project.video && (
+              <HoverVideo
+                src={project.video.src}
+                poster={project.video.poster}
+                label={`${project.title} preview`}
+                className="aspect-[16/10] w-full rounded-lg border border-line object-cover"
+              />
+            )}
+            <span className="mt-5 font-mono text-[13px] text-accent">
               {String(index + 1).padStart(2, "0")}
             </span>
             <h2 className="type-h3 mt-4">{project.title}</h2>

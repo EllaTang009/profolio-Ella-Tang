@@ -6,6 +6,12 @@ export interface Project {
   approach: string;
   result: string;
   techStack: string[];
+  // Optional preview video shown on the project card (hover to play)
+  // and as a banner on the detail page. Poster is the idle frame.
+  video?: {
+    src: string;
+    poster: string;
+  };
 }
 
 export const projects: Project[] = [
@@ -21,6 +27,10 @@ export const projects: Project[] = [
     result:
       "The agent gives Roblox a structured picture of interviewer performance across all 13 rubrics instead of relying on manual review.",
     techStack: ["Python", "Generative AI"],
+    video: {
+      src: "/videos/roblox.mp4",
+      poster: "/videos/roblox-poster.jpg",
+    },
   },
   {
     slug: "f1-performance-analysis",
@@ -34,6 +44,10 @@ export const projects: Project[] = [
     result:
       "The analysis was well received, earning positive feedback from the professor and peers.",
     techStack: ["Python", "pandas", "Statistical Modeling"],
+    video: {
+      src: "/videos/f1.mp4",
+      poster: "/videos/f1-poster.jpg",
+    },
   },
 ];
 
