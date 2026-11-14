@@ -37,14 +37,14 @@ export default function Life() {
                 className={`photo-frame ${
                   // Large full-width photos get the cinematic vignette.
                   photo.span.includes("col-span-12") ? "photo-vignette" : ""
-                } ${photo.ratio} overflow-hidden rounded-xl border border-line`}
+                } overflow-hidden rounded-xl border border-line`}
               >
                 <Image
                   src={photo.src}
                   alt={photo.alt}
-                  width={1200}
-                  height={800}
-                  className="photo-noir h-full w-full object-cover"
+                  width={photo.width}
+                  height={photo.height}
+                  className="photo-noir h-auto w-full"
                 />
               </div>
               <figcaption className="mt-3 font-mono text-xs text-secondary">
