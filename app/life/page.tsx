@@ -30,25 +30,31 @@ export default function Life() {
       </p>
 
       <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-12">
-        {lifePhotos.map((photo) => (
+        {lifePhotos.map((photo, index) => (
           <FadeIn key={photo.src} className={photo.span}>
             <figure>
               <div
                 className={`photo-frame ${
                   // Large full-width photos get the cinematic vignette.
                   photo.span.includes("col-span-12") ? "photo-vignette" : ""
-                } overflow-hidden rounded-xl border border-line`}
+                } ${photo.ratio} overflow-hidden border border-line`}
               >
                 <Image
                   src={photo.src}
                   alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  className="photo-noir h-auto w-full"
+                  width={1200}
+                  height={800}
+                  className="photo-noir h-full w-full object-cover"
+                  style={
+                    photo.focus ? { objectPosition: photo.focus } : undefined
+                  }
                 />
               </div>
-              <figcaption className="mt-3 font-mono text-xs text-secondary">
-                {photo.caption}
+              <figcaption className="mt-3 flex items-baseline justify-between gap-4 text-[13px] text-secondary">
+                {photo.caption && <span>{photo.caption}</span>}
+                <span className="font-mono">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
               </figcaption>
             </figure>
           </FadeIn>
