@@ -8,47 +8,24 @@ export interface LifePhoto {
   ratio: string;
 }
 
-export const lifePhotos: LifePhoto[] = [
-  {
-    src: "/images/life/life-01.jpg",
-    alt: "Golden hour landscape",
-    caption: "golden hour — my favorite light",
-    span: "md:col-span-12",
-    ratio: "aspect-[21/9]",
-  },
-  {
-    src: "/images/life/life-02.jpg",
-    alt: "Kitchen scene",
-    caption: "the kitchen — recipes from my catering days",
-    span: "md:col-span-7",
-    ratio: "aspect-[4/3]",
-  },
-  {
-    src: "/images/life/life-03.jpg",
-    alt: "Campus walk",
-    caption: "SCU campus — between classes",
-    span: "md:col-span-5 md:mt-24",
-    ratio: "aspect-[4/5]",
-  },
-  {
-    src: "/images/life/life-04.jpg",
-    alt: "Road trip view",
-    caption: "Highway 1 — weekend road trips",
-    span: "md:col-span-5",
-    ratio: "aspect-square",
-  },
-  {
-    src: "/images/life/life-05.jpg",
-    alt: "Late night desk",
-    caption: "the desk — editing long after midnight",
-    span: "md:col-span-7 md:mt-16",
-    ratio: "aspect-[3/2]",
-  },
-  {
-    src: "/images/life/life-06.jpg",
-    alt: "Calm evening view",
-    caption: "home — where the week resets",
-    span: "md:col-span-12",
-    ratio: "aspect-[16/9]",
-  },
+// One entry per processed photo in public/images/life/. Captions are
+// placeholders — replace the caption (and alt) text with real ones.
+const layouts = [
+  { span: "md:col-span-12", ratio: "aspect-[21/9]" },
+  { span: "md:col-span-7", ratio: "aspect-[4/3]" },
+  { span: "md:col-span-5 md:mt-24", ratio: "aspect-[4/5]" },
+  { span: "md:col-span-5", ratio: "aspect-square" },
+  { span: "md:col-span-7 md:mt-16", ratio: "aspect-[3/2]" },
+  { span: "md:col-span-12", ratio: "aspect-[16/9]" },
 ];
+
+export const lifePhotos: LifePhoto[] = Array.from({ length: 16 }, (_, i) => {
+  const layout = layouts[i % layouts.length];
+  return {
+    src: `/images/life/life-${String(i + 1).padStart(2, "0")}.jpg`,
+    alt: `Personal photo ${i + 1}`,
+    caption: "Add a caption",
+    span: layout.span,
+    ratio: layout.ratio,
+  };
+});
