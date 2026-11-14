@@ -34,14 +34,17 @@ export default function Life() {
           <FadeIn key={photo.src} className={photo.span}>
             <figure>
               <div
-                className={`${photo.ratio} overflow-hidden rounded-xl border border-line`}
+                className={`photo-frame ${
+                  // Large full-width photos get the cinematic vignette.
+                  photo.span.includes("col-span-12") ? "photo-vignette" : ""
+                } ${photo.ratio} overflow-hidden rounded-xl border border-line`}
               >
                 <Image
                   src={photo.src}
                   alt={photo.alt}
                   width={1200}
                   height={800}
-                  className="h-full w-full object-cover"
+                  className="photo-noir h-full w-full object-cover"
                 />
               </div>
               <figcaption className="mt-3 font-mono text-xs text-secondary">
