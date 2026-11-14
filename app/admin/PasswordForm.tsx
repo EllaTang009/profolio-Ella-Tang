@@ -8,7 +8,7 @@ import {
   inputClass,
   labelClass,
   submitButtonClass,
-} from "../components/formStyles";
+} from "@/app/components/formStyles";
 
 const initialState: LoginFormState = {};
 

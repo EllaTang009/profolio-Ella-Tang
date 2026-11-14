@@ -9,7 +9,7 @@ import {
   labelClass,
   submitButtonClass,
   successBannerClass,
-} from "../components/formStyles";
+} from "@/app/components/formStyles";
 
 const initialState: ContactFormState = { status: "idle", errors: {}, key: 0 };
 
