@@ -34,6 +34,14 @@ async function AdminGate() {
           Manage blog posts &rarr;
         </Link>
       </p>
+      <p className="mt-3">
+        <Link
+          href="/tracker"
+          className="font-mono text-[13px] text-accent transition-colors hover:text-foreground"
+        >
+          Job application tracker &rarr;
+        </Link>
+      </p>
       <SubmissionsTable />
     </>
   );

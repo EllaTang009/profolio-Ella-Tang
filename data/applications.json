@@ -1,0 +1,26 @@
+[
+  {
+    "id": "b4e1c8a0-93d2-4f7a-8c51-2e6b9d04a711",
+    "company": "Salesforce",
+    "role": "Software Engineer Intern",
+    "location": "San Francisco, CA",
+    "status": "Applied",
+    "appliedDate": "2026-11-10",
+    "link": "https://careers.salesforce.com/jobs/sof-eng-intern",
+    "notes": "Referred by a SCU alum at the career fair. Follow up in two weeks.",
+    "createdAt": "2026-11-10T18:30:00.000Z",
+    "updatedAt": "2026-11-10T18:30:00.000Z"
+  },
+  {
+    "id": "c7f2d9b1-84e3-4a8b-9d62-3f7c0e15b822",
+    "company": "Snowflake",
+    "role": "Data Analyst",
+    "location": "San Mateo, CA",
+    "status": "Interviewing",
+    "appliedDate": "2026-11-04",
+    "link": "",
+    "notes": "Technical screen finished; waiting on the take-home assignment.",
+    "createdAt": "2026-11-04T14:05:00.000Z",
+    "updatedAt": "2026-11-04T14:05:00.000Z"
+  }
+]
