@@ -4,13 +4,12 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { ContactFormErrors } from "@/lib/validation";
 import { loadDraft, saveDraft, clearDraft } from "@/lib/draftStorage";
 import {
-  errorBannerClass,
   fieldErrorClass,
   inputClass,
   labelClass,
   submitButtonClass,
-  successBannerClass,
 } from "@/app/components/formStyles";
+import Notice from "@/app/components/Notice";
 
 // Unlike /contact-me-server-form (which submits through a server action with
 // useActionState), this form is a plain client component that sends the data
@@ -158,12 +157,12 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="mt-8 space-y-5" noValidate>
       {success && (
-        <p role="status" className={successBannerClass}>
+        <Notice kind="success">
           Thank you, your message has been sent! I&apos;ll get back to you soon.
-        </p>
+        </Notice>
       )}
 
-      {errors.form && <p className={errorBannerClass}>{errors.form}</p>}
+      {errors.form && <Notice kind="error">{errors.form}</Notice>}
 
       {restoredAt && (
         <p className="flex flex-wrap items-center gap-x-3 rounded-lg border border-accent/25 bg-accent/10 px-4 py-3 text-sm text-foreground">

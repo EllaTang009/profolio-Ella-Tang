@@ -2,7 +2,7 @@
 
 // ApplicationTracker is the parent client component for /tracker.
 //
-// Data flow: ALL data is fetched from the API — this component holds the
+// Data flow: ALL data is fetched from the API thisthis component holds the
 // list in React state (loaded from GET /api/applications, refetched after
 // every create, update, and delete). It never touches the JSON file
 // directly; the child components are pure presentational pieces that
@@ -16,31 +16,17 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import {
-  errorBannerClass,
-  successBannerClass,
-} from "@/app/components/formStyles";
+import type {
+  Application,
+  ApplicationFormErrors,
+} from "@/lib/types/application";
+import Notice from "@/app/components/Notice";
+import EmptyState from "@/app/components/EmptyState";
 import ApplicationStats from "./ApplicationStats";
 import ApplicationCard from "./ApplicationCard";
 import ApplicationForm, {
   type ApplicationFormValues,
-  type ApplicationFormErrors,
 } from "./ApplicationForm";
-
-// Local copy of the application shape: client components never import the
-// lib module directly because it reads the JSON file with node "fs".
-interface Application {
-  id: string;
-  company: string;
-  role: string;
-  location: string;
-  status: string;
-  appliedDate: string;
-  link: string;
-  notes: string;
-  createdAt: string;
-  updatedAt: string;
-}
 
 const emptyForm: ApplicationFormValues = {
   company: "",
@@ -191,12 +177,12 @@ export default function ApplicationTracker() {
 
   if (loadError) {
     return (
-      <p className={`${errorBannerClass} mt-8`}>
+      <Notice kind="error" className="mt-8">
         {loadError}{" "}
         <Link href="/admin" className="text-accent underline">
           Go to login
         </Link>
-      </p>
+      </Notice>
     );
   }
 
@@ -207,18 +193,20 @@ export default function ApplicationTracker() {
   return (
     <>
       {notice && (
-        <p role="status" className={`${successBannerClass} mt-6`}>
+        <Notice kind="success" className="mt-6">
           {notice}
-        </p>
+        </Notice>
       )}
-      {formError && <p className={`${errorBannerClass} mt-6`}>{formError}</p>}
+      {formError && <Notice kind="error" className="mt-6">{formError}</Notice>}
 
       <ApplicationStats applications={applications} />
 
       {formOpen ? (
         <div className="mt-8 rounded-xl border border-line bg-surface p-5 sm:p-6">
           <h2 className="type-h3">
-            {editing ? `Edit application — ${editing.company}` : "Add application"}
+            {editing
+              ? `Edit application — ${editing.company}`
+              : "Add application"}
           </h2>
           <div className="mt-4">
             <ApplicationForm
@@ -246,12 +234,12 @@ export default function ApplicationTracker() {
       </h2>
 
       {applications.length === 0 ? (
-        <div className="mt-4 rounded-xl border border-dashed border-line bg-surface px-6 py-16 text-center">
+        <EmptyState>
           <p className="type-body">No applications yet.</p>
           <p className="type-caption mt-2">
             Use the button above to add the first one.
           </p>
-        </div>
+        </EmptyState>
       ) : (
         <ul className="mt-4 space-y-3">
           {applications.map((application) => (

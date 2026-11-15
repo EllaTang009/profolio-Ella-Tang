@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  errorBannerClass,
   fieldErrorClass,
   inputClass,
-  successBannerClass,
 } from "@/app/components/formStyles";
+import Notice from "@/app/components/Notice";
+import EmptyState from "@/app/components/EmptyState";
 
 interface Submission {
   id: string;
@@ -135,12 +135,12 @@ export default function SubmissionsTable() {
 
   if (loadError) {
     return (
-      <p className={`${errorBannerClass} mt-8`}>
+      <Notice kind="error" className="mt-8">
         {loadError}{" "}
         <Link href="/admin" className="text-accent underline">
           Go to login
         </Link>
-      </p>
+      </Notice>
     );
   }
 
@@ -150,7 +150,7 @@ export default function SubmissionsTable() {
 
   if (rows.length === 0) {
     return (
-      <div className="mt-8 rounded-xl border border-dashed border-line bg-surface px-6 py-16 text-center">
+      <EmptyState className="mt-8">
         <p className="type-body">No submissions yet.</p>
         <p className="type-caption mt-2">
           Messages sent from the{" "}
@@ -166,18 +166,18 @@ export default function SubmissionsTable() {
           </Link>{" "}
           will appear here.
         </p>
-      </div>
+      </EmptyState>
     );
   }
 
   return (
     <>
       {notice && (
-        <p role="status" className={`${successBannerClass} mt-6`}>
+        <Notice kind="success" className="mt-6">
           {notice}
-        </p>
+        </Notice>
       )}
-      {rowError && <p className={`${errorBannerClass} mt-6`}>{rowError}</p>}
+      {rowError && <Notice kind="error" className="mt-6">{rowError}</Notice>}
 
       <div className="mt-4 overflow-x-auto rounded-xl border border-line bg-surface">
         <table className="w-full min-w-[720px] text-left text-sm">

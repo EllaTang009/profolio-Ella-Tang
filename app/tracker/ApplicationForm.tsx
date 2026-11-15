@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import {
+  APPLICATION_STATUSES,
+  type ApplicationFormErrors,
+} from "@/lib/types/application";
+import {
   fieldErrorClass,
   inputClass,
   labelClass,
   submitButtonClass,
 } from "@/app/components/formStyles";
-
-// Kept in sync with lib/applications.ts (client components never import
-// that module directly because it reads the JSON file with node "fs").
-const STATUSES = ["Applied", "Interviewing", "Offer", "Rejected"] as const;
 
 export interface ApplicationFormValues {
   company: string;
@@ -20,14 +20,6 @@ export interface ApplicationFormValues {
   appliedDate: string;
   link: string;
   notes: string;
-}
-
-export interface ApplicationFormErrors {
-  company?: string;
-  role?: string;
-  status?: string;
-  appliedDate?: string;
-  form?: string;
 }
 
 // Used for both creating and editing: the parent passes empty values for
@@ -117,7 +109,7 @@ export default function ApplicationForm({
             onChange={(e) => set("status", e.target.value)}
             className={`${inputClass} mt-1 ${errors.status ? "border-danger" : ""}`}
           >
-            {STATUSES.map((status) => (
+            {APPLICATION_STATUSES.map((status) => (
               <option key={status} value={status}>
                 {status}
               </option>

@@ -1,20 +1,7 @@
-// Local copy of the application shape: client components never import the
-// lib module directly because it reads the JSON file with node "fs".
-interface Application {
-  id: string;
-  company: string;
-  role: string;
-  location: string;
-  status: string;
-  appliedDate: string;
-  link: string;
-  notes: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-// Kept in sync with lib/applications.ts.
-const STATUSES = ["Applied", "Interviewing", "Offer", "Rejected"] as const;
+import {
+  APPLICATION_STATUSES,
+  type Application,
+} from "@/lib/types/application";
 
 // Color per status, reused by the stats tiles and the cards so both stay
 // in sync with the design system.
@@ -31,7 +18,7 @@ export default function ApplicationStats({
 }: {
   applications: Application[];
 }) {
-  const counts = STATUSES.map((status) => ({
+  const counts = APPLICATION_STATUSES.map((status) => ({
     status,
     count: applications.filter((entry) => entry.status === status).length,
   }));

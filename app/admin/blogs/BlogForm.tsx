@@ -1,15 +1,14 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
-  errorBannerClass,
   fieldErrorClass,
   inputClass,
   labelClass,
   submitButtonClass,
-  successBannerClass,
 } from "@/app/components/formStyles";
+import Notice from "@/app/components/Notice";
 
 interface BlogFieldErrors {
   title?: string;
@@ -84,12 +83,12 @@ export default function BlogForm({
   return (
     <form onSubmit={handleSubmit} className="mt-8 max-w-2xl space-y-5" noValidate>
       {success && (
-        <p role="status" className={successBannerClass}>
+        <Notice kind="success">
           Post published! It is now listed on the blog page.
-        </p>
+        </Notice>
       )}
 
-      {errors.form && <p className={errorBannerClass}>{errors.form}</p>}
+      {errors.form && <Notice kind="error">{errors.form}</Notice>}
 
       <div>
         <label htmlFor="title" className={labelClass}>

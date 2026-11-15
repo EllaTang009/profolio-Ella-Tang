@@ -7,19 +7,8 @@
 
 import { useEffect, useState } from "react";
 import ProjectCard from "@/app/components/ProjectCard";
+import type { Project } from "@/lib/types/project";
 import { errorBannerClass } from "@/app/components/formStyles";
-
-// Local copy of the project shape: client components never import the lib
-// module directly because it reads the JSON file with node "fs".
-interface Project {
-  id: string;
-  slug: string;
-  title: string;
-  category: string;
-  shortDescription: string;
-  techStack: string[];
-  video?: { src: string; poster: string };
-}
 
 export default function ProjectList() {
   const [projects, setProjects] = useState<Project[] | null>(null);

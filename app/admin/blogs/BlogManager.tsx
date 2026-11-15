@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 // BlogManager owns everything on /admin/blogs: it fetches the posts from
 // GET /api/blogs on mount, renders the create form (BlogForm), and gives
@@ -8,25 +8,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import type { BlogPost } from "@/lib/types/blog";
 import {
-  errorBannerClass,
   fieldErrorClass,
   inputClass,
   labelClass,
-  successBannerClass,
 } from "@/app/components/formStyles";
 import BlogForm from "./BlogForm";
-
-// Local copy of the post shape: client components never import the lib
-// module directly because it reads the JSON file with node "fs".
-interface BlogPost {
-  id: string;
-  slug: string;
-  title: string;
-  summary: string;
-  content: string;
-  createdAt: string;
-}
+import Notice from "@/app/components/Notice";
 
 interface BlogFieldErrors {
   title?: string;
@@ -153,12 +142,12 @@ export default function BlogManager() {
 
   if (loadError) {
     return (
-      <p className={`${errorBannerClass} mt-8`}>
+      <Notice kind="error" className="mt-8">
         {loadError}{" "}
         <Link href="/admin" className="text-accent underline">
           Go to login
         </Link>
-      </p>
+      </Notice>
     );
   }
 
@@ -172,11 +161,11 @@ export default function BlogManager() {
       </h2>
 
       {notice && (
-        <p role="status" className={`${successBannerClass} mt-4`}>
+        <Notice kind="success" className="mt-4">
           {notice}
-        </p>
+        </Notice>
       )}
-      {listError && <p className={`${errorBannerClass} mt-4`}>{listError}</p>}
+      {listError && <Notice kind="error" className="mt-4">{listError}</Notice>}
 
       {posts === null ? (
         <p className="type-caption mt-4 font-mono">Loading posts...</p>
@@ -192,7 +181,7 @@ export default function BlogManager() {
                 </p>
                 <div className="mt-4 max-w-2xl space-y-4">
                   {draftErrors.form && (
-                    <p className={errorBannerClass}>{draftErrors.form}</p>
+                    <Notice kind="error">{draftErrors.form}</Notice>
                   )}
                   <div>
                     <label htmlFor={`edit-title-${post.id}`} className={labelClass}>

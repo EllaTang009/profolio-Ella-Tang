@@ -10,39 +10,15 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import type { Project, ProjectFormErrors } from "@/lib/types/project";
 import {
-  errorBannerClass,
   fieldErrorClass,
   inputClass,
   labelClass,
-  successBannerClass,
   submitButtonClass,
 } from "@/app/components/formStyles";
-
-// Local copy of the project shape: client components never import the lib
-// module directly because it reads the JSON file with node "fs".
-interface Project {
-  id: string;
-  slug: string;
-  title: string;
-  category: string;
-  shortDescription: string;
-  problem: string;
-  approach: string;
-  result: string;
-  techStack: string[];
-  video?: { src: string; poster: string };
-  liveUrl?: string;
-  createdAt: string;
-}
-
-interface ProjectFieldErrors {
-  title?: string;
-  summary?: string;
-  category?: string;
-  techStack?: string;
-  form?: string;
-}
+import Notice from "@/app/components/Notice";
+import EmptyState from "@/app/components/EmptyState";
 
 interface FormValues {
   title: string;
@@ -108,7 +84,7 @@ export default function ProjectManager() {
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Project | null>(null);
   const [values, setValues] = useState<FormValues>(emptyForm);
-  const [fieldErrors, setFieldErrors] = useState<ProjectFieldErrors>({});
+  const [fieldErrors, setFieldErrors] = useState<ProjectFormErrors>({});
   const [saving, setSaving] = useState(false);
 
   // Reloads the whole list from the API. Called on mount and after every
@@ -183,7 +159,7 @@ export default function ProjectManager() {
         return;
       }
       if (response.status === 400) {
-        const body = (await response.json()) as { errors?: ProjectFieldErrors };
+        const body = (await response.json()) as { errors?: ProjectFormErrors };
         setFieldErrors(body.errors ?? { form: "Validation failed." });
         return;
       }
@@ -241,12 +217,12 @@ export default function ProjectManager() {
 
   if (loadError) {
     return (
-      <p className={`${errorBannerClass} mt-8`}>
+      <Notice kind="error" className="mt-8">
         {loadError}{" "}
         <Link href="/admin" className="text-accent underline">
           Go to login
         </Link>
-      </p>
+      </Notice>
     );
   }
 
@@ -256,16 +232,16 @@ export default function ProjectManager() {
   return (
     <>
       {notice && (
-        <p role="status" className={`${successBannerClass} mt-6`}>
+        <Notice kind="success" className="mt-6">
           {notice}
-        </p>
+        </Notice>
       )}
-      {listError && <p className={`${errorBannerClass} mt-6`}>{listError}</p>}
+      {listError && <Notice kind="error" className="mt-6">{listError}</Notice>}
 
       {formOpen ? (
         <div className="mt-8 rounded-xl border border-line bg-surface p-5 sm:p-6">
           <h2 className="type-h3">
-            {editing ? `Edit project — ${editing.title}` : "Add project"}
+            {editing ? `Edit project $${editing.title}` : "Add project"}
           </h2>
           <form
             className="mt-4 max-w-2xl space-y-4"
@@ -276,9 +252,7 @@ export default function ProjectManager() {
             noValidate
           >
             {fieldErrors.form && (
-              <p className={fieldErrorClass} role="alert">
-                {fieldErrors.form}
-              </p>
+              <Notice kind="error">{fieldErrors.form}</Notice>
             )}
 
             <div>
@@ -415,12 +389,12 @@ export default function ProjectManager() {
       {projects === null ? (
         <p className="type-caption mt-4 font-mono">Loading projects...</p>
       ) : projects.length === 0 ? (
-        <div className="mt-4 rounded-xl border border-dashed border-line bg-surface px-6 py-16 text-center">
+        <EmptyState>
           <p className="type-body">No projects yet.</p>
           <p className="type-caption mt-2">
             Use the button above to add the first one.
           </p>
-        </div>
+        </EmptyState>
       ) : (
         <ul className="mt-4 divide-y divide-line rounded-xl border border-line bg-surface">
           {projects.map((project) => (

@@ -1,21 +1,7 @@
 "use client";
 
+import type { Application } from "@/lib/types/application";
 import { statusStyles } from "./ApplicationStats";
-
-// Local copy of the application shape: client components never import the
-// lib module directly because it reads the JSON file with node "fs".
-interface Application {
-  id: string;
-  company: string;
-  role: string;
-  location: string;
-  status: string;
-  appliedDate: string;
-  link: string;
-  notes: string;
-  createdAt: string;
-  updatedAt: string;
-}
 
 // Shows one application as a card. All data and actions arrive through
 // props from ApplicationTracker; the card itself makes no API calls.

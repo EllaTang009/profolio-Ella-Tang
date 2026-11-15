@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/app/admin/auth";
 import { getSubmissions, addSubmission } from "@/lib/submissions";
 import { validateContact } from "@/lib/validation";
@@ -26,7 +26,7 @@ export async function GET() {
 }
 
 // Handles POST /api/contact: create a submission from a JSON body.
-// Stays public 鈥?this is the form visitors use.
+// Stays public — this is the form visitors use.
 export async function POST(request: Request) {
   // Step 1: Parse the JSON body. Malformed JSON gets a 400.
   let body: unknown;
