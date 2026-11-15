@@ -16,11 +16,11 @@
     "createdAt": "2026-11-12T15:30:00.000Z"
   },
   {
-    "title": "Test Post",
-    "summary": "A test summary.",
-    "content": "Test content.",
-    "id": "2d6b70c9-a2e2-4178-8d4e-cb58ea3ef7a1",
-    "slug": "test-post",
-    "createdAt": "2026-11-15T05:19:50.143Z"
+    "id": "dd6f78d1-90e9-4fb6-a552-b68eba2f0f03",
+    "slug": "what-i-learned-building-my-portfolio-with-an-ai-coding-agent",
+    "title": "What I Learned Building My Portfolio with an AI Coding Agent",
+    "summary": "Debugging taught me more than writing code: why I verify what the agent tells me.",
+    "content": "I built this portfolio with Next.js and an AI coding agent. The agent wrote most of the code quickly, but the most valuable lessons came from debugging.\n\nAt one point, my project videos stopped playing on hover. The agent changed the code three times, but nothing worked. Then I noticed the site behaved differently at 127.0.0.1 and at localhost. Next.js was blocking development resources from 127.0.0.1, so the page's JavaScript never loaded.\n\nThe lesson: an AI agent can write code fast, but I am responsible for checking that it actually works. Testing in the browser and comparing results helped me find the real cause.",
+    "createdAt": "2026-11-15T05:45:52.956Z"
   }
 ]

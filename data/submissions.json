@@ -40,21 +40,5 @@
     "email": "ytang4@scu.edu",
     "message": "have a great day.",
     "submittedAt": "2026-11-10T07:26:32.755Z"
-  },
-  {
-    "name": "API Tester",
-    "email": "api@test.com",
-    "message": "hello from the api route",
-    "source": "api",
-    "id": "fcb2cd0b-ff2c-42d5-b5c2-8b6968eb26c1",
-    "submittedAt": "2026-11-12T21:49:45.780Z"
-  },
-  {
-    "name": "Freshness Check",
-    "email": "fresh@scu.edu",
-    "message": "submitted after page load",
-    "source": "api",
-    "id": "5b2ca44c-89b6-4b92-934b-7708f26469ce",
-    "submittedAt": "2026-11-12T21:53:56.252Z"
   }
 ]
