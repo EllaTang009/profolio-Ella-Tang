@@ -42,6 +42,14 @@ async function AdminGate() {
           Job application tracker &rarr;
         </Link>
       </p>
+      <p className="mt-3">
+        <Link
+          href="/admin/projects"
+          className="font-mono text-[13px] text-accent transition-colors hover:text-foreground"
+        >
+          Manage projects &rarr;
+        </Link>
+      </p>
       <SubmissionsTable />
     </>
   );

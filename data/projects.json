@@ -1,0 +1,63 @@
+[
+  {
+    "id": "e1a5f7c3-2b94-4d68-8a30-5c9d1e74b101",
+    "slug": "roblox-interview-agent",
+    "title": "AI Interviewer Rating Agent",
+    "category": "AI Practicum",
+    "shortDescription": "A practicum project for Roblox: an AI agent that evaluates interviewer performance across 13 rubrics.",
+    "problem": "Roblox needed a reliable way to see whether interviewers performed well during their interviews.",
+    "approach": "As a practicum project for Roblox, I built an AI agent that evaluates interviewer performance across 13 rubrics, turning interview sessions into structured, comparable results.",
+    "result": "The agent gives Roblox a structured picture of interviewer performance across all 13 rubrics instead of relying on manual review.",
+    "techStack": [
+      "Python",
+      "Generative AI"
+    ],
+    "video": {
+      "src": "/videos/roblox.mp4",
+      "poster": "/videos/roblox-poster.jpg"
+    },
+    "createdAt": "2026-10-20T09:00:00.000Z"
+  },
+  {
+    "id": "f2b6a8d4-3c05-4e79-9b41-6d0e2f85c202",
+    "slug": "f1-performance-analysis",
+    "title": "Formula 1 Driver Performance Analysis",
+    "category": "Data Analysis",
+    "shortDescription": "A Python project investigating what drives Formula 1 driver performance using statistical modeling.",
+    "problem": "What actually drives Formula 1 driver performance? The project set out to test hypotheses instead of assuming.",
+    "approach": "Used Python with pandas and statistical modeling to investigate hypotheses about the factors behind driver performance.",
+    "result": "The analysis was well received, earning positive feedback from the professor and peers.",
+    "techStack": [
+      "Python",
+      "pandas",
+      "Statistical Modeling"
+    ],
+    "video": {
+      "src": "/videos/f1.mp4",
+      "poster": "/videos/f1-poster.jpg"
+    },
+    "createdAt": "2026-10-27T09:00:00.000Z"
+  },
+  {
+    "id": "a3c7b9e5-4d16-4f8a-0c52-7e1f3a96d303",
+    "slug": "ripple-realty-group",
+    "title": "Ripple Realty Group Website",
+    "category": "Web Development",
+    "shortDescription": "A real estate company website I built end to end, serving the Silicon Valley and Boston markets.",
+    "problem": "The company needed a professional website to present its listings and turn visitors into client inquiries.",
+    "approach": "I mapped the site structure, designed the property listing and contact pages, and implemented the page layouts in HTML/CSS and JavaScript. After launch, I used site analytics and user feedback to simplify the navigation, restructure the above-the-fold content and listing cards, and compress image assets.",
+    "result": "Faster page load times and more contact form submissions.",
+    "techStack": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Site Analytics"
+    ],
+    "video": {
+      "src": "/videos/ripple.mp4",
+      "poster": "/videos/ripple-poster.jpg"
+    },
+    "liveUrl": "https://www.ripplerealtygroup.com/",
+    "createdAt": "2026-11-03T09:00:00.000Z"
+  }
+]

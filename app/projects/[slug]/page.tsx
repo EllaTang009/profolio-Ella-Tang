@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { connection } from "next/server";
+import { Suspense } from "react";
 import BannerVideo from "@/app/components/BannerVideo";
-import { getProjectBySlug, projects } from "@/lib/projects";
+import { getProjectBySlug, getProjects } from "@/lib/projects";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
+// Known slugs are prerendered at build time; projects created later in the
+// admin render on demand.
+export async function generateStaticParams() {
+  const projects = await getProjects();
   return projects.map((project) => ({ slug: project.slug }));
 }
 
@@ -15,16 +20,19 @@ export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
   if (!project) {
     return { title: "Project not found" };
   }
   return { title: project.title };
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
+// The content is dynamic (projects are created in the admin at runtime), so
+// the slug resolution and body run per request inside a Suspense boundary.
+async function ProjectContent({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  await connection();
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     return (
@@ -99,14 +107,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       )}
 
       <div className="mt-12 space-y-10">
-        {sections.map((section) => (
-          <div key={section.label}>
-            <h2 className="font-mono text-[13px] uppercase tracking-wider text-accent">
-              {section.label}
-            </h2>
-            <p className="type-body mt-3">{section.text}</p>
-          </div>
-        ))}
+        {sections
+          .filter((section) => section.text)
+          .map((section) => (
+            <div key={section.label}>
+              <h2 className="font-mono text-[13px] uppercase tracking-wider text-accent">
+                {section.label}
+              </h2>
+              <p className="type-body mt-3">{section.text}</p>
+            </div>
+          ))}
 
         <div>
           <h2 className="font-mono text-[13px] uppercase tracking-wider text-accent">
@@ -125,5 +135,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </div>
     </section>
+  );
+}
+
+export default function ProjectPage({ params }: ProjectPageProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto w-full max-w-3xl flex-1 px-4 py-16 sm:px-6">
+          <div className="h-96 animate-pulse rounded-xl border border-line bg-surface" />
+        </div>
+      }
+    >
+      <ProjectContent params={params} />
+    </Suspense>
   );
 }
