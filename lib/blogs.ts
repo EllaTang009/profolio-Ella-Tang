@@ -34,6 +34,11 @@ export async function getBlogBySlug(slug: string): Promise<BlogPost | undefined>
   return blogs.find((post) => post.slug === slug);
 }
 
+export async function getBlogById(id: string): Promise<BlogPost | undefined> {
+  const blogs = await getBlogs();
+  return blogs.find((post) => post.id === id);
+}
+
 // Turns a title into a URL-friendly slug and keeps it unique by appending
 // -2, -3, ... when another post already uses it.
 function uniqueSlug(title: string, blogs: BlogPost[]): string {
@@ -68,6 +73,48 @@ export async function addBlog(input: NewBlogPost): Promise<BlogPost> {
   await fs.writeFile(blogsPath, JSON.stringify(blogs, null, 2), "utf8");
 
   return post;
+}
+
+export async function updateBlog(
+  id: string,
+  input: NewBlogPost
+): Promise<BlogPost | undefined> {
+  // Make sure the data folder exists before writing.
+  await fs.mkdir(path.dirname(blogsPath), { recursive: true });
+
+  const blogs = await getBlogs();
+
+  // Unknown id: nothing is written, so the caller knows it failed.
+  const index = blogs.findIndex((post) => post.id === id);
+  if (index === -1) {
+    return undefined;
+  }
+
+  // If the title changed, regenerate the slug and keep it unique among the
+  // OTHER posts (the post being edited must not collide with itself).
+  let slug = blogs[index].slug;
+  if (input.title !== blogs[index].title) {
+    const others = blogs.filter((post) => post.id !== id);
+    slug = uniqueSlug(input.title, others);
+  }
+
+  // Update the editable fields; id and createdAt stay intact.
+  blogs[index] = { ...blogs[index], title: input.title, summary: input.summary, content: input.content, slug };
+  await fs.writeFile(blogsPath, JSON.stringify(blogs, null, 2), "utf8");
+  return blogs[index];
+}
+
+export async function deleteBlog(id: string): Promise<boolean> {
+  const blogs = await getBlogs();
+  const remaining = blogs.filter((post) => post.id !== id);
+
+  // Unknown id: nothing to write, so the caller knows the delete failed.
+  if (remaining.length === blogs.length) {
+    return false;
+  }
+
+  await fs.writeFile(blogsPath, JSON.stringify(remaining, null, 2), "utf8");
+  return true;
 }
 
 // Shared validation for create and (later) update: every field must be

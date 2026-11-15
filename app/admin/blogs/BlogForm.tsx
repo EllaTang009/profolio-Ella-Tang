@@ -20,8 +20,12 @@ interface BlogFieldErrors {
 
 // Creates a blog post by POSTing JSON to /api/blogs. Field errors from a
 // 400 response are shown under each field; a 201 clears the form, shows
-// the success message, and refreshes the server-rendered list.
-export default function BlogForm() {
+// the success message, and notifies the parent (which refreshes the list).
+export default function BlogForm({
+  onCreated,
+}: {
+  onCreated?: () => void;
+}) {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
@@ -54,8 +58,13 @@ export default function BlogForm() {
         setTitle("");
         setSummary("");
         setContent("");
-        // Re-render the server component list with the new post.
-        router.refresh();
+        // With a parent list (BlogManager), let it refresh its own state;
+        // otherwise re-render the server component list.
+        if (onCreated) {
+          onCreated();
+        } else {
+          router.refresh();
+        }
       } else {
         setErrors(
           body.errors && Object.keys(body.errors).length > 0
