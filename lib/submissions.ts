@@ -57,6 +57,33 @@ export async function addSubmission(input: NewSubmission): Promise<Submission> {
   return submission;
 }
 
+export async function getSubmissionById(id: string): Promise<Submission | undefined> {
+  const submissions = await getSubmissions();
+  return submissions.find((entry) => entry.id === id);
+}
+
+export async function updateSubmission(
+  id: string,
+  input: { name: string; email: string; message: string }
+): Promise<Submission | undefined> {
+  const submissions = await getSubmissions();
+
+  // Unknown id: nothing is written, so the caller knows it failed.
+  const index = submissions.findIndex((entry) => entry.id === id);
+  if (index === -1) {
+    return undefined;
+  }
+
+  // Update only the editable fields; id, timestamp, and source stay intact.
+  submissions[index] = { ...submissions[index], ...input };
+  await fs.writeFile(
+    submissionsPath,
+    JSON.stringify(submissions, null, 2),
+    "utf8"
+  );
+  return submissions[index];
+}
+
 export async function deleteSubmission(id: string): Promise<boolean> {
   const submissions = await getSubmissions();
   const remaining = submissions.filter((entry) => entry.id !== id);
