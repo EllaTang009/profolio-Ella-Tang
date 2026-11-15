@@ -38,7 +38,7 @@
     "id": "9f58f397-ee33-466d-befd-77516fa1737c",
     "name": "Ella",
     "email": "ytang4@scu.edu",
-    "message": "have a nice day.",
+    "message": "have a great day.",
     "submittedAt": "2026-11-10T07:26:32.755Z"
   },
   {
@@ -56,21 +56,5 @@
     "source": "api",
     "id": "5b2ca44c-89b6-4b92-934b-7708f26469ce",
     "submittedAt": "2026-11-12T21:53:56.252Z"
-  },
-  {
-    "name": "Flow Test API",
-    "email": "flow-api@scu.edu",
-    "message": "part 2 flow test via api",
-    "source": "api",
-    "id": "1746d1a3-3a73-4239-a4d7-432b84254aa9",
-    "submittedAt": "2026-11-12T22:04:57.584Z"
-  },
-  {
-    "name": "Flow Test SF",
-    "email": "flow-sf@scu.edu",
-    "message": "part 2 flow test via server form",
-    "source": "server-form",
-    "id": "e0ba44d1-926d-4376-b8f9-c6f4e5fec736",
-    "submittedAt": "2026-11-12T22:04:58.192Z"
   }
 ]

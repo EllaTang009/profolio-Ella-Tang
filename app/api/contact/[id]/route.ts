@@ -7,6 +7,9 @@ import {
 } from "@/lib/submissions";
 import { validateContact } from "@/lib/validation";
 
+// Never cached: edits and deletes must be visible immediately.
+const noStore = { "Cache-Control": "no-store" };
+
 // Handles GET /api/contact/[id]: returns one submission (admin only).
 export async function GET(
   _request: Request,
@@ -16,7 +19,7 @@ export async function GET(
     console.log("[contact] GET /api/contact/[id] -> 401");
     return NextResponse.json(
       { errors: { form: "Unauthorized. Please log in as admin." } },
-      { status: 401 }
+      { status: 401, headers: noStore }
     );
   }
 
@@ -26,12 +29,12 @@ export async function GET(
     console.log(`[contact] GET /api/contact/${id} -> 404`);
     return NextResponse.json(
       { errors: { form: "Submission not found." } },
-      { status: 404 }
+      { status: 404, headers: noStore }
     );
   }
 
   console.log(`[contact] GET /api/contact/${id} -> 200`);
-  return NextResponse.json(submission, { status: 200 });
+  return NextResponse.json(submission, { status: 200, headers: noStore });
 }
 
 // Handles PUT /api/contact/[id]: updates name, email, and message with the
@@ -44,7 +47,7 @@ export async function PUT(
     console.log("[contact] PUT /api/contact/[id] -> 401");
     return NextResponse.json(
       { errors: { form: "Unauthorized. Please log in as admin." } },
-      { status: 401 }
+      { status: 401, headers: noStore }
     );
   }
 
@@ -58,7 +61,7 @@ export async function PUT(
     console.log(`[contact] PUT /api/contact/${id} -> 400 (invalid JSON)`);
     return NextResponse.json(
       { errors: { form: "Invalid JSON in request body." } },
-      { status: 400 }
+      { status: 400, headers: noStore }
     );
   }
 
@@ -72,7 +75,7 @@ export async function PUT(
   const errors = validateContact({ name, email, message });
   if (Object.keys(errors).length > 0) {
     console.log(`[contact] PUT /api/contact/${id} -> 400 (validation failed)`);
-    return NextResponse.json({ errors }, { status: 400 });
+    return NextResponse.json({ errors }, { status: 400, headers: noStore });
   }
 
   // Step 4: Update through the shared submissions module.
@@ -81,12 +84,12 @@ export async function PUT(
     console.log(`[contact] PUT /api/contact/${id} -> 404`);
     return NextResponse.json(
       { errors: { form: "Submission not found." } },
-      { status: 404 }
+      { status: 404, headers: noStore }
     );
   }
 
   console.log(`[contact] PUT /api/contact/${id} -> 200`);
-  return NextResponse.json(updated, { status: 200 });
+  return NextResponse.json(updated, { status: 200, headers: noStore });
 }
 
 // Handles DELETE /api/contact/[id]: removes the submission (admin only).
@@ -98,7 +101,7 @@ export async function DELETE(
     console.log("[contact] DELETE /api/contact/[id] -> 401");
     return NextResponse.json(
       { errors: { form: "Unauthorized. Please log in as admin." } },
-      { status: 401 }
+      { status: 401, headers: noStore }
     );
   }
 
@@ -108,10 +111,10 @@ export async function DELETE(
     console.log(`[contact] DELETE /api/contact/${id} -> 404`);
     return NextResponse.json(
       { errors: { form: "Submission not found." } },
-      { status: 404 }
+      { status: 404, headers: noStore }
     );
   }
 
   console.log(`[contact] DELETE /api/contact/${id} -> 200`);
-  return NextResponse.json({ deleted: true }, { status: 200 });
+  return NextResponse.json({ deleted: true }, { status: 200, headers: noStore });
 }

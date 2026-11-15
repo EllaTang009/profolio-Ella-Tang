@@ -1,7 +1,10 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/app/admin/auth";
 import { getSubmissions, addSubmission } from "@/lib/submissions";
 import { validateContact } from "@/lib/validation";
+
+// Never cached: the table must always reflect the latest JSON file.
+const noStore = { "Cache-Control": "no-store" };
 
 // Handles GET /api/contact: returns all submissions, newest first.
 // Protected because submissions contain personal data.
@@ -10,7 +13,7 @@ export async function GET() {
     console.log("[contact] GET /api/contact -> 401");
     return NextResponse.json(
       { errors: { form: "Unauthorized. Please log in as admin." } },
-      { status: 401 }
+      { status: 401, headers: noStore }
     );
   }
 
@@ -19,11 +22,11 @@ export async function GET() {
     b.submittedAt.localeCompare(a.submittedAt)
   );
   console.log(`[contact] GET /api/contact -> 200 (${sorted.length} submissions)`);
-  return NextResponse.json(sorted, { status: 200 });
+  return NextResponse.json(sorted, { status: 200, headers: noStore });
 }
 
 // Handles POST /api/contact: create a submission from a JSON body.
-// Stays public — this is the form visitors use.
+// Stays public 鈥?this is the form visitors use.
 export async function POST(request: Request) {
   // Step 1: Parse the JSON body. Malformed JSON gets a 400.
   let body: unknown;
