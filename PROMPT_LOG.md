@@ -31,6 +31,7 @@ A chronological log of the prompts used to build this portfolio with an AI codin
 | 25 | /life shows empty boxes and unfiltered photos — investigate | No code bug: verified single 16-entry list, all files present, filter active in computed styles; symptoms were stale dev-server chunks. Critique: headless lazy-loading initially misread as broken images. |
 | 26 | Natural aspect ratios instead of cropping | Fixed the head-cutting crop but made the grid uneven — reverted in the next prompt. |
 | 27 | Revert to fixed editorial frames; crop with object-position "center 25%"; optional per-photo focus override; sharp corners; numbered caption rows | Final /life layout: magazine-style frames, face-safe crop, caption-left/number-right rows. |
+|Add a blog: data/blogs.json, shared lib/blogs.ts, GET and POST /api/blogs with server logs, /admin/blogs create form, /blogs list with a reusable BlogCard, and /blogs/[slug] dynamic route|Blog feature required by the Part 2 description|`cd2bbbd`|
 
 ## Lessons
 
