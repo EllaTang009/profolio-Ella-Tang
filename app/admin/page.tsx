@@ -1,4 +1,5 @@
 ﻿import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { isAdminAuthenticated } from "./auth";
 import PasswordForm from "./PasswordForm";
@@ -25,6 +26,14 @@ async function AdminGate() {
           Log out
         </button>
       </form>
+      <p className="mt-6">
+        <Link
+          href="/admin/blogs"
+          className="font-mono text-[13px] text-accent transition-colors hover:text-foreground"
+        >
+          Manage blog posts &rarr;
+        </Link>
+      </p>
       <SubmissionsTable />
     </>
   );

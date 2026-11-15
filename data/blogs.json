@@ -1,0 +1,26 @@
+[
+  {
+    "id": "3f2a9d1e-8b64-4c1a-9d2f-6f0a55c31b01",
+    "slug": "why-i-moved-from-audit-to-information-systems",
+    "title": "Why I Moved from Audit to Information Systems",
+    "summary": "What Big 4 audit taught me about data, and why I decided to switch paths.",
+    "content": "My first job was in Big 4 audit, where I learned to work with large amounts of financial data under real deadlines.\n\nOver time I realized the part of the work I enjoyed most was not the spreadsheets themselves but building better ways to handle the data behind them.\n\nThat realization led me to information systems: the same attention to detail, aimed at building tools instead of only checking them.",
+    "createdAt": "2026-11-13T09:00:00.000Z"
+  },
+  {
+    "id": "a8c4e7b2-51d9-4f83-b6a0-2c9e8d47f002",
+    "slug": "growing-a-content-company-to-one-million-followers",
+    "title": "Growing a Content Company to One Million Followers",
+    "summary": "Four months, one million followers, and everything I learned about consistency.",
+    "content": "Running an automotive content company was my first taste of growing an audience from zero.\n\nWe posted consistently, studied which videos performed, and doubled down on what the audience responded to.\n\nThe biggest lesson: data does not just apply to dashboards. It applies to creative work too.",
+    "createdAt": "2026-11-12T15:30:00.000Z"
+  },
+  {
+    "title": "Test Post",
+    "summary": "A test summary.",
+    "content": "Test content.",
+    "id": "2d6b70c9-a2e2-4178-8d4e-cb58ea3ef7a1",
+    "slug": "test-post",
+    "createdAt": "2026-11-15T05:19:50.143Z"
+  }
+]
